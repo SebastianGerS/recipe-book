@@ -9,7 +9,7 @@ import {Ingredient} from './recipe-item/ingredient/ingredient';
 })
 
 export class RecipesListComponent implements OnInit {
-  recipes: any[] = [
+  recipes: Recipe[] = [
     new Recipe (
       'Pasta Bolognese med riven parmesanost',
       'main course',
@@ -38,11 +38,18 @@ export class RecipesListComponent implements OnInit {
         new Ingredient('black peper', null, null, 'spice'),
         new Ingredient('parmesan', 100, 'g', 'chees'),
     ]),
-    ];
+  ];
+  selectedRecipe: Recipe;
+
+  onSelect(recipe: Recipe): void {
+    this.selectedRecipe = recipe;
+  }
 
   constructor() {
   }
 
   ngOnInit() {
   }
+
+ 
 }

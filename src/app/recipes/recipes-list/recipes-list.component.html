@@ -1,6 +1,7 @@
-<ul>
-    <li *ngFor="let recipe of recipes">
-      name: {{recipe.name}}
-      
+<ul class="recipes">
+    <li *ngFor="let recipe of recipes" (click)="onSelect(recipe)" [class.selected]="recipe === selectedRecipe">
+      <span class="badge">{{recipe.time}} min</span>{{recipe.name}}
+      <h2>Details</h2>
     </li>
 </ul> 
+<app-recipe-details [recipe]="selectedRecipe"></app-recipe-details>
