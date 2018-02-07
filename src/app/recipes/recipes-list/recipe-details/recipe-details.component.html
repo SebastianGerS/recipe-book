@@ -4,10 +4,11 @@
     <label>name:
       <input [(ngModel)]="recipe.name" placeholder="name">
     </label>
-    <p>type: {{recipe.type}}</p>
-    <p>{{recipe.time}} min</p>
-    <p>portions: {{recipe.portions}}</p>
-    <p>{{recipe.description}}</p>
+    <button (click)="save()">save</button>
+    <p>Type: {{recipe.type}}</p>
+    <p>Time: {{recipe.time}} min</p>
+    <p>Servings: {{recipe.servings}}</p>
+    <p>Description {{recipe.description}}</p>
     <ul>
       <li *ngFor="let ingredient of recipe.ingredients">
         {{ingredient.name}}

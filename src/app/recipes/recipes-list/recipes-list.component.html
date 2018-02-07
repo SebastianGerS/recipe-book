@@ -1,7 +1,40 @@
 <ul class="recipes">
     <li *ngFor="let recipe of recipes">
-      <a routerLink="/recipe/{{recipe.name}}">
+      <a routerLink="/recipe/{{recipe.id}}">
       <span class="badge">{{recipe.time}} min</span>{{recipe.name}}
       </a>
+      <button class="delete" title="delete recipe"
+        (click)="delete(recipe)">x</button>
     </li>
 </ul>
+
+<section>
+  <label>Recipe name:
+    <input #recipeName />
+  </label>
+  <label>Recipe type:
+      <input #recipeType />
+  </label>
+  <label>Recipe servings:
+      <input #recipeServings />
+  </label>
+  <label>Recipe decription:
+      <input #recipeDescription />
+  </label>
+  <label>Recipe time:
+      <input #recipeTime />
+  </label>
+
+  <button (click)="add(recipeName.value, 
+    recipeType.value,
+    recipeServings.value,
+    recipeDescription.value,
+    recipeTime.value); 
+    recipeName.value='';
+    recipeType.value='';
+    recipeServings.value='';
+    recipeDescription.value='';
+    recipeTime.value='';
+    ">Add</button>
+
+</section>
