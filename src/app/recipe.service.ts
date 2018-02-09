@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import {Recipe} from './recipes/recipes-list/recipe-item/recipe';
 import { YUMMLY } from '../keys';
+import { forEach } from '@angular/router/src/utils/collection';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -14,8 +15,7 @@ const httpOptions = {
 export class RecipeService {
   private yummly = YUMMLY;
   private recipesUrl = 'api/recipes';
-  
-  //`http://api.yummly.com/v1/api/recipes?_app_id=${this.yummly['app-id']}&_app_key=${this.yummly['app-key']}`;
+  private yummlyUrl =`http://api.yummly.com/v1/api/recipes?_app_id=${this.yummly['app-id']}&_app_key=${this.yummly['app-key']}`;
 
   constructor(
     private http: HttpClient,
@@ -73,10 +73,49 @@ export class RecipeService {
     );
   }
   searchRecipes(term: string): Observable<Recipe[]> {
-    if(!term.trim()) {
+    if (!term.trim()) {
       return of([]);
     }
-    return this.http.get<Recipe[]>(`api/recipes/?name=${term}`).pipe(
+    return this.http.get(`${this.yummlyUrl}&q=${term}`).pipe(
+      map(res => {
+        const recipes = [];
+        const matches = res['matches'];
+        matches.forEach((match) => {
+          let cuisine, course, holiday, time;
+          if (match.attributes.cuisine) {
+            cuisine = match.attributes.cuisine;
+          } else {
+            cuisine = [];
+          }
+
+          if (match.attributes.course) {
+            course = match.attributes.course;
+          } else {
+            course = [];
+          }
+          if (match.attributes.holiday) {
+            holiday = match.attributes.holiday;
+          } else {
+            holiday = [];
+          }
+
+          time = +match.totalTimeInSeconds / 60;
+
+          recipes.push(
+            new Recipe(
+              match.id,
+              match.recipeName,
+              cuisine,
+              course,
+              holiday,
+              time,
+              match.ingredients,
+              match.smallImageUrls[0],
+          ));
+        });
+        console.log(recipes);
+        return recipes;
+      }),
       tap(_ => this.log(`found recipes matching "${term}"`)),
       catchError(this.handleError<Recipe[]>('searchRecipes', []))
     );

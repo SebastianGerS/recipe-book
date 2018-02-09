@@ -1,21 +1,32 @@
 import {Ingredient} from './ingredient/ingredient';
 
 export class Recipe {
-  id: number;
+  id: string;
   name: string;
-  type: string;
-  servings: number;
-  description: string;
+  cuisine: [string];
+  course: [string];
+  holiday: [string];
   time: number;
-  ingredients: [Ingredient];
+  ingredients: any[];
+  imgUrl: string;
 
-  constructor(id: number, name: string, type: string, servings: number , description: string, time: number, ingredients: [Ingredient]) {
+  constructor(
+    id: string,
+    name: string,
+    cuisine: [string],
+    course: [string] ,
+    holiday: [string],
+    time: number,
+    ingredients: [string],
+    imgUrl: string) {
+
     this.id = id;
     this.name = name;
-    this.type = type;
-    this.servings = servings;
-    this.description = description;
+    this.cuisine = cuisine;
+    this.course = course;
+    this.holiday = holiday;
     this.time = time;
     this.ingredients = ingredients;
+    this.imgUrl = imgUrl;
   }
 }

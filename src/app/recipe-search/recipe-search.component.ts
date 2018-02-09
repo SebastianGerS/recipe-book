@@ -11,7 +11,7 @@ import { RecipeService } from '../recipe.service';
   styleUrls: ['./recipe-search.component.css']
 })
 export class RecipeSearchComponent implements OnInit {
-  recipes$: Observable<Recipe[]>;
+  recipes$: Observable<any[]>;
   private searchTerms = new Subject<string>();
 
   constructor(private recipeService: RecipeService) { }

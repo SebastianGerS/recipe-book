@@ -32,9 +32,6 @@ import { InvertColorOnHoverDirective } from './invert-color-on-hover.directive';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, {dataEncapsulation: false }
-    ),
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
   ],
   providers: [RecipeService, MessageService],

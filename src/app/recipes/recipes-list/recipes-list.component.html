@@ -12,28 +12,28 @@
   <label>Recipe name:
     <input #recipeName />
   </label>
-  <label>Recipe type:
-      <input #recipeType />
+  <label>Recipe course:
+      <input #recipeCourse />
   </label>
-  <label>Recipe servings:
-      <input #recipeServings />
+  <label>Recipe cuisine:
+      <input #recipeCuisine />
   </label>
-  <label>Recipe decription:
-      <input #recipeDescription />
+  <label>Recipe holiday:
+      <input #recipeHoliday />
   </label>
   <label>Recipe time:
       <input #recipeTime />
   </label>
 
   <button (click)="add(recipeName.value, 
-    recipeType.value,
-    recipeServings.value,
-    recipeDescription.value,
+    recipeCourse.value,
+    recipeCuisine.value,
+    recipeHoliday.value,
     recipeTime.value); 
     recipeName.value='';
-    recipeType.value='';
-    recipeServings.value='';
-    recipeDescription.value='';
+    recipeCourse.value='';
+    recipeCuisine.value='';
+    recipeHoliday.value='';
     recipeTime.value='';
     ">Add</button>
 

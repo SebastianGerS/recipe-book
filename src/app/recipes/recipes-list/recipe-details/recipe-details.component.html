@@ -5,11 +5,28 @@
       <input [(ngModel)]="recipe.name" placeholder="name">
     </label>
     <button (click)="save()">save</button>
-    <p>Type: {{recipe.type}}</p>
-    <p>Time: {{recipe.time}} min</p>
-    <p>Servings: {{recipe.servings}}</p>
-    <p>Description {{recipe.description}}</p>
+    <img src="{{recipe.imgUrl}}">
     <ul>
+        <h4>Course</h4>
+      <li *ngFor="let course of recipe.course">
+          {{course}
+      </li>
+    </ul>
+    <p>Time: {{recipe.time}} min</p>
+    <ul>
+        <h4>Cuisine</h4>
+      <li *ngFor="let cuisine of recipe.cuisine">
+          {{cuisine}
+      </li>
+    </ul>
+    <ul>
+        <h4>Holiday</h4>
+      <li *ngFor="let holiday of recipe.holiday">
+          {{holiday}
+      </li>
+    </ul>
+    <ul>
+      <h4>Ingredients</h4>
       <li *ngFor="let ingredient of recipe.ingredients">
         {{ingredient.name}}
       </li>
