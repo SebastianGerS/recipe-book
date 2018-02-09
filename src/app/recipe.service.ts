@@ -72,11 +72,12 @@ export class RecipeService {
       catchError(this.handleError<Recipe>('deleteRecipe'))
     );
   }
-  searchRecipes(term: string): Observable<Recipe[]> {
+  searchRecipes(term: string, courseTerm: string): Observable<Recipe[]> {
     if (!term.trim()) {
       return of([]);
     }
-    return this.http.get(`${this.yummlyUrl}&q=${term}`).pipe(
+    const url = `${this.yummlyUrl}&q=${term}&${courseTerm}`;
+    return this.http.get(url).pipe(
       map(res => {
         const recipes = [];
         const matches = res['matches'];
