@@ -84,10 +84,8 @@ export class RecipeService {
       return of([]);
     }
     const url = `${this.yummlyUrl}&q=${term}${courseTerm}${allergieTerm}${dietTerm}${holidayTerm}${cousineTerm}`;
-    console.log(url);
     return this.http.get(url).pipe(
       map(res => {
-        console.log(res);
         const recipes = [];
         const matches = res['matches'];
         matches.forEach((match) => {
@@ -128,7 +126,6 @@ export class RecipeService {
               imgUrl,
           ));
         });
-        console.log(recipes);
         return recipes;
       }),
       tap(_ => this.log(`found recipes matching "${term}"`)),
