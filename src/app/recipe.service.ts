@@ -72,17 +72,26 @@ export class RecipeService {
       catchError(this.handleError<Recipe>('deleteRecipe'))
     );
   }
-  searchRecipes(term: string, courseTerm: string): Observable<Recipe[]> {
+  searchRecipes(
+    term: string,
+    courseTerm: string,
+    allergieTerm: string,
+    dietTerm: string,
+    holidayTerm: string,
+    cousineTerm: string
+  ): Observable<Recipe[]> {
     if (!term.trim()) {
       return of([]);
     }
-    const url = `${this.yummlyUrl}&q=${term}&${courseTerm}`;
+    const url = `${this.yummlyUrl}&q=${term}${courseTerm}${allergieTerm}${dietTerm}${holidayTerm}${cousineTerm}`;
+    console.log(url);
     return this.http.get(url).pipe(
       map(res => {
+        console.log(res);
         const recipes = [];
         const matches = res['matches'];
         matches.forEach((match) => {
-          let cuisine, course, holiday, time;
+          let cuisine, course, holiday, time, imgUrl;
           if (match.attributes.cuisine) {
             cuisine = match.attributes.cuisine;
           } else {
@@ -99,6 +108,11 @@ export class RecipeService {
           } else {
             holiday = [];
           }
+          if (match.smallImageUrls) {
+            imgUrl= match.smallImageUrls[0];
+          } else {
+            imgUrl = '';
+          }
 
           time = +match.totalTimeInSeconds / 60;
 
@@ -111,7 +125,7 @@ export class RecipeService {
               holiday,
               time,
               match.ingredients,
-              match.smallImageUrls[0],
+              imgUrl,
           ));
         });
         console.log(recipes);
