@@ -9,6 +9,9 @@
 </ul>
 
 <section>
+    <label>Recipe Id:
+        <input #recipeId />
+    </label>
   <label>Recipe name:
     <input #recipeName />
   </label>
@@ -25,7 +28,8 @@
       <input #recipeTime />
   </label>
 
-  <button (click)="add(recipeName.value, 
+  <button (click)="add(recipeId.value,
+    recipeName.value, 
     recipeCourse.value,
     recipeCuisine.value,
     recipeHoliday.value,

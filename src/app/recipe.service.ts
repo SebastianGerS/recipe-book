@@ -15,7 +15,9 @@ const httpOptions = {
 export class RecipeService {
   private yummly = YUMMLY;
   private recipesUrl = 'api/recipes';
-  private yummlyUrl =`http://api.yummly.com/v1/api/recipes?_app_id=${this.yummly['app-id']}&_app_key=${this.yummly['app-key']}`;
+  private yummlyKeys = `_app_id=${this.yummly['app-id']}&_app_key=${this.yummly['app-key']}`;
+  private yummlyUrl = `http://api.yummly.com/v1/api/recipes?${this.yummlyKeys}`;
+  private yummlyGetOneUrl = 'http://api.yummly.com/v1/api/recipe/';
 
   constructor(
     private http: HttpClient,
@@ -31,9 +33,53 @@ export class RecipeService {
     );
   }
 
-  getRecipe(id: number): Observable<Recipe> {
-    const url = `${this.recipesUrl}/${id}`;
+  getRecipe(id: string): Observable<Recipe> {
+    const url = `${this.yummlyGetOneUrl}${id}?${this.yummlyKeys}`;
     return this.http.get<Recipe>(url).pipe(
+      map(res => {
+        let recipe, cuisine, course, holiday, time, imgUrl;
+          if (res['attributes']['cuisine']) {
+            cuisine = res['attributes']['cuisine'];
+          } else {
+            cuisine = [];
+          }
+
+          if (res['attributes']['course']) {
+            course = res['attributes']['course'];
+          } else {
+            course = [];
+          }
+          if (res['attributes']['holiday']) {
+            holiday = res['attributes']['holiday'];
+          } else {
+            holiday = [];
+          }
+         if (res['images']['hostedMediumUrl']) {
+            imgUrl = res['images']['hostedMediumUrl'];
+          } else if (res['images']['hostedSmallUrl']) {
+            imgUrl = res['images']['hostedSmallUrl'];
+          } else if (res['images']['hostedLargeUrl']) {
+            imgUrl = res['images']['hostedLargeUrl'];
+          } else {
+            imgUrl = '';
+          }
+          if (res['totalTimeInSeconds']) {
+            time = +res['totalTimeInSeconds'] / 60;
+          }
+
+          recipe = 
+            new Recipe(
+              res['source']['sourceRecipeUrl'],
+              res['name'],
+              cuisine,
+              course,
+              holiday,
+              time,
+              res['ingredientLines'],
+              imgUrl,
+          );
+        return recipe;
+      }),
       tap(_ => this.log(`Fetched Recipe id=${id}`)),
       catchError(this.handleError<Recipe>(`getRecipe id=${id}`))
     );
@@ -72,18 +118,11 @@ export class RecipeService {
       catchError(this.handleError<Recipe>('deleteRecipe'))
     );
   }
-  searchRecipes(
-    term: string,
-    courseTerm: string,
-    allergieTerm: string,
-    dietTerm: string,
-    holidayTerm: string,
-    cousineTerm: string
-  ): Observable<Recipe[]> {
+  searchRecipes( term: string, filters: string): Observable<Recipe[]> {
     if (!term.trim()) {
       return of([]);
     }
-    const url = `${this.yummlyUrl}&q=${term}${courseTerm}${allergieTerm}${dietTerm}${holidayTerm}${cousineTerm}`;
+    const url = `${this.yummlyUrl}&q=${term}${filters}`;
     return this.http.get(url).pipe(
       map(res => {
         const recipes = [];

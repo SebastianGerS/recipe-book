@@ -37,6 +37,33 @@
       <a routerLink="/recipe/{{recipe.id}}">
       name: {{recipe.name}}
       </a>
-    </li>
+      <img src="{{recipe.imgUrl}}">
+      <ul *ngIf="recipe.courses.length">
+          <h4>Course:</h4>
+        <li *ngFor="let course of recipe.courses">
+            {{course}}
+        </li>
+      </ul>
+      <p>Time: {{recipe.time}} min</p>
+      <ul *ngIf="recipe.cuisines.length">
+          <h4>Cuisine:</h4>
+        <li *ngFor="let cuisine of recipe.cuisines">
+            {{cuisine}}
+        </li>
+      </ul>
+      <ul *ngIf="recipe.holidays.length">
+          <h4>Holiday:</h4>
+        <li *ngFor="let holiday of recipe.holidays">
+            {{holiday}}
+        </li>
+      </ul>
+      <ul *ngIf="recipe.ingredients.length">
+        <h4>Ingredients:</h4>
+        <li *ngFor="let ingredient of recipe.ingredients">
+          {{ingredient}}
+        </li>
+      </ul>
+      
+      </li>
   </ul>
 </section>
