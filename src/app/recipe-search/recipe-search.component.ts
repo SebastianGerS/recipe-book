@@ -29,7 +29,7 @@ export class RecipeSearchComponent implements OnInit {
   public showDiets = false;
   public showHolidays = false;
   public showCuisines = false;
-  public showTotaltimes = false;
+  public showTotalTimes = false;
 
 
   constructor(private recipeService: RecipeService) { }
