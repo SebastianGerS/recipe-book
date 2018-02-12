@@ -54,21 +54,29 @@ export class RecipeSearchComponent implements OnInit {
   handleParams (filter: RecipeFilter): void {
     const param = this.escapeSpecialCharacters(`&${filter.parameter}`);
     const regExp = RegExp(`${param}*`);
-
-    if (regExp.test(TIMEBASE)) {
+    let newRegExp = RegExp(`${TIMEBASE}*`);
+ 
+    if (newRegExp.test(TIMEBASE)) {
       this.totalTimes.forEach(element => {
         const toBeChecked = this.escapeSpecialCharacters(`&${element.parameter}`);
-        const newRegexp = RegExp(`${toBeChecked}*`);
-        if(newRegexp.test(this.filters)) {
-          this.filters = this.filters.replace(`&${filter.parameter}`, '');
+        newRegExp = RegExp(`${toBeChecked}*`);
+        if (newRegExp.test(this.filters)) {
+          this.filters = this.filters.replace(`&${element.parameter}`, '');
         }
       });
       this.filters += `&${filter.parameter}`;
+
     } else if (regExp.test(this.filters)) {
       this.filters = this.filters.replace(`&${filter.parameter}`, '');
     } else {
       this.filters += `&${filter.parameter}`;
     }
+
+  }
+
+  add(recipe: Recipe): void {
+      this.recipeService.addRecipe(recipe)
+      .subscribe();
   }
 
 }

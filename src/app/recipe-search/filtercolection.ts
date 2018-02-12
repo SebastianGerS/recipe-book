@@ -5,7 +5,7 @@
   export const DIETBASE = 'allowedDiet[]=';
   export const HOLIDAYBASE = 'allowedHoliday[]=holiday^holiday-';
   export const CUISINEBASE = 'allowedCuisine[]=cuisine^cuisine-';
-  export const TIMEBASE ='maxTotalTimeInSeconds=';
+  export const TIMEBASE = 'maxTotalTimeInSeconds=';
 
   export const COURSES = [
     new RecipeFilter('Desserts', `${this.COURSBASE}Desserts`),

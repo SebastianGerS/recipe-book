@@ -11,8 +11,10 @@ import { forEach } from '@angular/router/src/utils/collection';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
+
 @Injectable()
 export class RecipeService {
+
   private yummly = YUMMLY;
   private recipesUrl = 'api/recipes';
   private yummlyKeys = `_app_id=${this.yummly['app-id']}&_app_key=${this.yummly['app-key']}`;
@@ -103,12 +105,19 @@ export class RecipeService {
       catchError(this.handleError<any>('updateRecipe'))
     );
   }
+
   addRecipe (recipe: Recipe): Observable<Recipe> {
-    return this.http.post<Recipe>(this.recipesUrl, recipe, httpOptions).pipe(
-      tap((recipe: Recipe) => this.log(`added Recipe w/ id=${recipe.id}`)),
-      catchError(this.handleError<Recipe>('addRecipe'))
-    );
+    return this.http.get<Recipe>(`${this.recipesUrl}/${recipe.id}`).pipe(
+      tap((recipe: Recipe) => this.log(`recipe with id=${recipe.id} is already in list`)),
+      catchError( res => {
+        return this.http.post<Recipe>(this.recipesUrl, recipe, httpOptions).pipe(
+        tap((recipe: Recipe) => this.log(`added Recipe whit id=${recipe.id}`)),
+        catchError(this.handleError<Recipe>('addRecipe'))
+        );
+      }
+    ));
   }
+
   deleteRecipe(recipe: Recipe | number): Observable<Recipe> {
     const id = typeof recipe === 'number' ? recipe : recipe.id;
     const url = `${this.recipesUrl}/${id}`;
@@ -118,6 +127,7 @@ export class RecipeService {
       catchError(this.handleError<Recipe>('deleteRecipe'))
     );
   }
+
   searchRecipes( term: string, filters: string): Observable<Recipe[]> {
     if (!term.trim()) {
       return of([]);

@@ -37,4 +37,9 @@ export class RecipeDetailsComponent implements OnInit {
     this.recipeService.updateRecipe(this.recipe)
     .subscribe(() => this.goBack());
   }
+
+  add(recipe: Recipe): void {
+    this.recipeService.addRecipe(recipe)
+      .subscribe();
+  }
 }

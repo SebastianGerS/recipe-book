@@ -15,8 +15,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.getRecipes();
   }
+  
   getRecipes(): void {
     this.recipeService.getRecipes()
-      .subscribe(recipes => this.recipes = recipes.slice(1, 2));
+      .subscribe();
   }
 }
