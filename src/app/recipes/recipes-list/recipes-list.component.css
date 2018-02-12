@@ -3,21 +3,41 @@
   color: white;
 }
 .recipes {
-  margin: 0 0 2em 0;
+  margin: 2em auto;
   list-style-type: none;
   padding: 0;
-  width: 20em;
+  width: 25em;
 }
 .recipes li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   cursor: pointer;
-  position: relative;
-  left: 0;
-  background-color: #EEE;
-  color: forestgreen;
-  margin: .5em;
-  padding: .3em 0;
-  height: 1.6em;
+  background-color: #607D8B;
+  color: azure;
+  margin: 0.5em;
+  padding: 0.3em 0.35em;
+  height: 2em;
   border-radius: 4px;
+  font-size: 1.25em;
+}
+
+.recipes li div {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+} 
+
+.recipes li button {
+  background: none;
+  outline: none;
+  background-color: azure;
+  border:none;
+  color: #607D8B;
+  border-radius: 100%;
+  cursor: pointer;
+
 }
 
 a {
@@ -25,17 +45,9 @@ a {
   
 }
 
-.recipes .badge {
-  display: inline-block;
-  font-size: small;
-  color: white;
-  padding: 0.8em 0.7em 0 0.7em;
-  background-color: #607D8B;
-  line-height: 1em;
-  position: relative;
-  left: -1px;
-  top: -4px;
-  height: 1.8em;
-  margin-right: .8em;
-  border-radius: 4px 0 0 4px;
+h4 {
+  color: #607D8B;
+  text-align: center;
+  margin: 4em 0;
+  font-size: 2em;
 }

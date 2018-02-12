@@ -1,44 +1,14 @@
-<ul class="recipes">
-    <li *ngFor="let recipe of recipes" appInvertColorOnHover>
-      <a routerLink="/recipe/{{recipe.id}}" >
-      <span class="badge">{{recipe.time}} min</span>{{recipe.name}}
-      </a>
-      <button class="delete" title="delete recipe"
-        (click)="delete(recipe)">x</button>
+<ul class="recipes" *ngIf="recipes.length; else elseBlock">
+    <li *ngFor="let recipe of recipes">
+        <a routerLink="/recipe/{{recipe.id}}" >
+            {{recipe.name | slice:0:25}}
+        </a>
+      <div>
+        <button class="delete" title="delete recipe"
+          (click)="delete(recipe)">x</button>
+      </div>
     </li>
 </ul>
-
-<section>
-    <label>Recipe Id:
-        <input #recipeId />
-    </label>
-  <label>Recipe name:
-    <input #recipeName />
-  </label>
-  <label>Recipe course:
-      <input #recipeCourse />
-  </label>
-  <label>Recipe cuisine:
-      <input #recipeCuisine />
-  </label>
-  <label>Recipe holiday:
-      <input #recipeHoliday />
-  </label>
-  <label>Recipe time:
-      <input #recipeTime />
-  </label>
-
-  <button (click)="add(recipeId.value,
-    recipeName.value, 
-    recipeCourse.value,
-    recipeCuisine.value,
-    recipeHoliday.value,
-    recipeTime.value); 
-    recipeName.value='';
-    recipeCourse.value='';
-    recipeCuisine.value='';
-    recipeHoliday.value='';
-    recipeTime.value='';
-    ">Add</button>
-
-</section>
+<ng-template #elseBlock>
+    <h4>You have not added any recipes to your list yeat</h4>
+</ng-template>

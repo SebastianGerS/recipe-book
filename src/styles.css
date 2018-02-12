@@ -54,5 +54,7 @@ a {
 } 
 
 body{
-  background-color: azure;
+	background-color: azure;
+	font-family: BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	padding-top: 2em;
 }

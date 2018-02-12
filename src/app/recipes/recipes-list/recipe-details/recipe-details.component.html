@@ -1,11 +1,8 @@
-<div *ngIf="recipe">
-    <button (click)="goBack()">go back</button>
+<article class="recipe"*ngIf="recipe">
     <h2>{{recipe.name}}</h2>
-    <label>name:
-      <input [(ngModel)]="recipe.name" placeholder="name">
-    </label>
-    <button (click)="save()">save</button>
-    <img src="{{recipe.imgUrl}}">
+    <figure>
+      <img src="{{recipe.imgUrl}}">
+    </figure>
     <ul *ngIf="recipe.courses.length">
         <h4>Course:</h4>
       <li *ngFor="let course of recipe.courses">
@@ -32,5 +29,8 @@
       </li>
     </ul>
     <a href="{{recipe.id}}">Click for more detailed instructions</a>
-    <button (click)="add(recipe)">Add to list</button>
-  </div>
+    <div>
+      <button id="goBack"(click)="goBack()">go back</button>
+      <button (click)="add(recipe)">Add to list</button>
+    </div>
+  </article>

@@ -2,4 +2,23 @@ h1 {
   color: #607D8B;
   font-size: 5em;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  margin-bottom: 1em;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: blueviolet;
+  padding:1em;
+
+}
+
+nav a {
+  background-color: chartreuse;
+  padding:1em;
+  margin:1em;
+  color: azure;
+  border-radius: 5%;
+  box-shadow: 0.1em 0.2em 0.3em black;
 }

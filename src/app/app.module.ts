@@ -13,7 +13,6 @@ import { RecipeService } from './recipe.service';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './message.service';
 import { AppRoutingModule } from './app-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
 import { InvertColorOnHoverDirective } from './invert-color-on-hover.directive';
 
@@ -23,7 +22,6 @@ import { InvertColorOnHoverDirective } from './invert-color-on-hover.directive';
     RecipesListComponent,
     RecipeDetailsComponent,
     MessagesComponent,
-    DashboardComponent,
     RecipeSearchComponent,
     InvertColorOnHoverDirective,
   ],
