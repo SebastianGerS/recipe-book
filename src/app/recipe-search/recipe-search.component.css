@@ -22,7 +22,7 @@
   color: azure;
   box-shadow: 0.1em 0.2em 0.3em black;
   cursor: pointer;
-  margin-bottom: 1em;
+  margin: 1em 0;
   min-width: 200px;
 }
 .filters button:hover {
@@ -54,10 +54,11 @@ input[type="checkbox" ]:checked, input[type="radio" ]:checked {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 0.5em;
+  margin: 0.25em 0;
   background-color: blueviolet;
   min-width:200px;
   border-radius: 5%;
+  padding: 0.2em 0;
 }
 
 .search-bar {
@@ -145,4 +146,11 @@ h2 {
   font-size: 2.5em;
   margin: 2em 0;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+@media only screen and (max-width: 1200px) {
+  .filters {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 }

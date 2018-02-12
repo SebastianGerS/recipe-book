@@ -24,12 +24,12 @@ export class RecipeSearchComponent implements OnInit {
   private cuisines = CUISINES;
   private totalTimes = TOTALTIMES;
   private filters = '';
-  private showCourses = false;
-  private showAllergies = false;
-  private showDiets = false;
-  private showHolidays = false;
-  private showCuisines = false;
-  private showTotaltimes = false;
+  public showCourses = false;
+  public showAllergies = false;
+  public showDiets = false;
+  public showHolidays = false;
+  public showCuisines = false;
+  public showTotaltimes = false;
 
 
   constructor(private recipeService: RecipeService) { }
@@ -41,9 +41,7 @@ export class RecipeSearchComponent implements OnInit {
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((term: string) => {
-        if(term.length) {
         return this.recipeService.searchRecipes(term, this.filters);
-        }
       })
     );
   }
@@ -63,7 +61,7 @@ export class RecipeSearchComponent implements OnInit {
     const regExp = RegExp(`${param}*`);
     let newRegExp = RegExp(`${TIMEBASE}*`);
  
-    if (newRegExp.test(TIMEBASE)) {
+    if (newRegExp.test(param)) {
       this.totalTimes.forEach(element => {
         const toBeChecked = this.escapeSpecialCharacters(`&${element.parameter}`);
         newRegExp = RegExp(`${toBeChecked}*`);
@@ -78,7 +76,7 @@ export class RecipeSearchComponent implements OnInit {
     } else {
       this.filters += `&${filter.parameter}`;
     }
-
+    console.log(this.filters);
   }
 
   add(recipe: Recipe): void {

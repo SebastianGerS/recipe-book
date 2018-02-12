@@ -18,7 +18,7 @@ export class RecipeService {
   private yummly = YUMMLY;
   private recipesUrl = 'api/recipes';
   private yummlyKeys = `_app_id=${this.yummly['app-id']}&_app_key=${this.yummly['app-key']}`;
-  private yummlyUrl = `http://api.yummly.com/v1/api/recipes?${this.yummlyKeys}`;
+  private yummlyUrl = `http://api.yummly.com/v1/api/recipes?${this.yummlyKeys}&q=`;
   private yummlyGetOneUrl = 'http://api.yummly.com/v1/api/recipe/';
 
   constructor(
@@ -129,7 +129,7 @@ export class RecipeService {
     if (!term.trim()) {
       return of([]);
     }
-    const url = `${this.yummlyUrl}&q=${term}${filters}`;
+    const url = `${this.yummlyUrl}${term}${filters}`;
     return this.http.get(url).pipe(
       map(res => {
         const recipes = [];
@@ -174,6 +174,12 @@ export class RecipeService {
         });
         return recipes;
       }),
+      tap(r => {
+        if (!r.length) {
+          return this.log(`Unfortunately no results were found`);
+        }
+        return r;
+        }),
       catchError(this.handleError<Recipe[]>('searchRecipes', []))
     );
   }
