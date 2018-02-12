@@ -1,11 +1,2 @@
-<h3>Top Recipes</h3>
-<section class="grid grid-pad">
-  <a *ngFor="let recipe of recipes" class="col-1-4"
-      routerLink="/recipe/{{recipe.id}}" >
-    <div class="module recipe" appInvertColorOnHover>
-      <h4>{{recipe.name}}</h4>
-    </div>
-  </a>
-</section>
 
 <app-recipe-search></app-recipe-search>

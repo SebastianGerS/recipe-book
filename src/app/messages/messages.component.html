@@ -3,8 +3,6 @@
   <div class="modal" *ngFor="let message of messageService.message">
       <h2>Message</h2>
       <p>{{message}}</p>
-      <button class="clear"
-              (click)="messageService.clear()">Ok
-      </button>
+      <button class="clear" (click)="messageService.clear()" appInvertColorOnHover>Ok</button>
   </div>
 </section>

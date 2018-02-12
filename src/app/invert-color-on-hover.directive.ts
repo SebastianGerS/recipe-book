@@ -6,8 +6,8 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 export class InvertColorOnHoverDirective {
 
   constructor(private el: ElementRef) {
-    el.nativeElement.style.color = 'forestgreen';
-    el.nativeElement.style.backgroundColor = '#EEE';
+    el.nativeElement.style.color = 'azure';
+    el.nativeElement.style.backgroundColor = '#607D8B';
    }
 
   @HostListener('mouseenter') onMouseEnter() {

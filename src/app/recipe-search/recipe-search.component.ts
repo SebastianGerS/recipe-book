@@ -24,6 +24,12 @@ export class RecipeSearchComponent implements OnInit {
   private cuisines = CUISINES;
   private totalTimes = TOTALTIMES;
   private filters = '';
+  private showCourses = false;
+  private showAllergies = false;
+  private showDiets = false;
+  private showHolidays = false;
+  private showCuisines = false;
+  private showTotaltimes = false;
 
 
   constructor(private recipeService: RecipeService) { }
@@ -35,8 +41,10 @@ export class RecipeSearchComponent implements OnInit {
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((term: string) => {
+        if(term.length) {
         return this.recipeService.searchRecipes(term, this.filters);
-      } )
+        }
+      })
     );
   }
   escapeSpecialCharacters(s: string): string {

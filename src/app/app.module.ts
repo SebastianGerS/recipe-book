@@ -25,7 +25,7 @@ import { InvertColorOnHoverDirective } from './invert-color-on-hover.directive';
     MessagesComponent,
     DashboardComponent,
     RecipeSearchComponent,
-    InvertColorOnHoverDirective
+    InvertColorOnHoverDirective,
   ],
   imports: [
     BrowserModule,

@@ -1,43 +1,64 @@
 <section id="search-component">
-  <h4>Recipe Search</h4>
+  <div class="search-bar">
+  <h4>Recipes</h4>
   <input #searchBox id="search-box"
-    (keyup)="search(searchBox.value)" />
+    (keyup)="search(searchBox.value)" placeholder="Search"/>
+  </div>
+    <div class="filters">
     <section>
-        <h4>Courses:</h4>
-          <div *ngFor="let course of courses" >
-            <input type="checkbox" name="course" (click)='handleParams(course)'>{{course.name}}
+        <button (click)="showCourses = !showCourses" appInvertColorOnHover>Courses</button>
+          <div *ngIf="showCourses">
+            <div  class="courses"*ngFor="let course of courses" >
+              <input type="checkbox" name="course" (click)='handleParams(course)'>
+              <p>{{course.name}}</p>
+            </div>
+        </div>
+    </section>
+    <section>
+      <button (click)="showAllergies = !showAllergies" appInvertColorOnHover>Allergies</button>
+      <div *ngIf="showAllergies">
+        <div *ngFor="let allergie of allergies" >
+          <input type="checkbox" name="allergie" (click)='handleParams(allergie)'>
+          <p>{{allergie.name}}</p>
+        </div>
+      </div>
+    </section>
+    <section>
+      <button (click)="showDiets = !showDiets "appInvertColorOnHover>Diets</button>
+      <div *ngIf="showDiets">
+        <div *ngFor="let diet of diets" >
+          <input type="checkbox" name="diet" (click)='handleParams(diet)'>{{diet.name}}
+        </div>
+      </div>
+    </section>
+    <section>
+        <button (click)="showHolidays = !showHolidays" appInvertColorOnHover>Holidays</button>
+        <div *ngIf="showHolidays">
+          <div *ngFor="let holiday of holidays" >
+            <input type="checkbox" name="holiday" (click)='handleParams(holiday)'>
+            <p>{{holiday.name}}</p>
           </div>
-    </section>
-    <section>
-        <h4>Allergies:</h4>
-      <div *ngFor="let allergie of allergies" >
-        <input type="checkbox" name="allergie" (click)='handleParams(allergie)'>{{allergie.name}}
-      </div>
-    </section>
-    <section>
-      <h4>Diets:</h4>
-      <div *ngFor="let diet of diets" >
-        <input type="checkbox" name="diet" (click)='handleParams(diet)'>{{diet.name}}
-      </div>
-    </section>
-    <section>
-        <h4>Holidays:</h4>
-        <div *ngFor="let holiday of holidays" >
-          <input type="checkbox" name="holiday" (click)='handleParams(holiday)'>{{holiday.name}}
         </div>
     </section>
     <section>
-        <h4>Cuisines:</h4>
-        <div *ngFor="let cuisine of cuisines" >
-          <input type="checkbox" name="cuisine" (click)='handleParams(cuisine)'>{{cuisine.name}}
+        <button (click)="showCuisines = !showCuisines" appInvertColorOnHover>Cuisines</button>
+        <div *ngIf="showCuisines">
+          <div class="checkbox-group" *ngFor="let cuisine of cuisines" >
+            <input type="checkbox" name="cuisine" (click)='handleParams(cuisine)'>
+            <p>{{cuisine.name}}</p>
+          </div>
         </div>
     </section>
     <section>
-        <h4>Max Total time:</h4>
-        <div *ngFor="let totalTime of totalTimes" >
-          <input type="radio" name="holiday" (click)='handleParams(totalTime)'>{{totalTime.name}}
+        <button (click)="showTotalTimes = !showTotalTimes" appInvertColorOnHover>Max TotalTime</button>
+        <div *ngIf="showTotalTimes">
+          <div *ngFor="let totalTime of totalTimes" >
+            <input type="radio" name="holiday" (click)='handleParams(totalTime)'>
+            <p>{{totalTime.name}}</p>
+          </div>
         </div>
     </section>
+  </div>
   <ul class="search-result">
     <li *ngFor="let recipe of recipes$ | async" >
       <a routerLink="/recipe/{{recipe.id}}">
