@@ -1,17 +1,10 @@
 h2 {
-  color: red;
+  color: teal;
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: lighter;
-}
-body {
-  margin: 2em;
-}
-body, input[text], button {
-  color: crimson;
-  font-family: Cambria, Georgia;
 }
  
 button.clear {
+  position: relative;
   font-family: Arial;
   background-color: #eee;
   border: none;
@@ -19,16 +12,29 @@ button.clear {
   border-radius: 4px;
   cursor: pointer;
   cursor: hand;
-}
-button:hover {
-  background-color: #cfd8dc;
-}
-button:disabled {
-  background-color: #eee;
-  color: #aaa;
-  cursor: auto;
-}
-button.clear {
   color: #888;
   margin-bottom: 12px;
+  margin-left: 46%;
+}
+
+ h2, p {
+  text-align: center;
+  padding: 1em 0;
+}
+
+p{
+  color: #888;
+}
+
+.modal {
+  background-color: khaki;
+  display:block;
+  position: fixed;
+  z-index: 1;
+  left: 29%;
+  top: 50%;
+  width: 40%;
+  height: auto;
+  border: 0.1em solid gainsboro;
+  box-shadow: 0.15em 0.3em 0.4em black;
 }

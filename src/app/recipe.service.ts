@@ -27,10 +27,8 @@ export class RecipeService {
      }
 
   getRecipes(): Observable<Recipe[]> {
-    this.log('Recipes found');
     return this.http.get<Recipe[]>(`${this.recipesUrl}`)
     .pipe(
-      tap(recipes => this.log('fetched recipes')),
       catchError(this.handleError('getRecipes', []))
     );
   }
@@ -82,18 +80,16 @@ export class RecipeService {
           );
         return recipe;
       }),
-      tap(_ => this.log(`Fetched Recipe id=${id}`)),
       catchError(this.handleError<Recipe>(`getRecipe id=${id}`))
     );
   }
 
   private log(message: string) {
-    this.messageService.add('RecipeService: ' + message);
+    this.messageService.add(message);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error);
       this.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
@@ -108,10 +104,10 @@ export class RecipeService {
 
   addRecipe (recipe: Recipe): Observable<Recipe> {
     return this.http.get<Recipe>(`${this.recipesUrl}/${recipe.id}`).pipe(
-      tap((recipe: Recipe) => this.log(`recipe with id=${recipe.id} is already in list`)),
+      tap((recipe: Recipe) => this.log(`The recipe you tried to add is already in you list`)),
       catchError( res => {
         return this.http.post<Recipe>(this.recipesUrl, recipe, httpOptions).pipe(
-        tap((recipe: Recipe) => this.log(`added Recipe whit id=${recipe.id}`)),
+        tap((recipe: Recipe) => this.log(`Added recipe with id=${recipe.id} to your list`)),
         catchError(this.handleError<Recipe>('addRecipe'))
         );
       }
@@ -123,7 +119,7 @@ export class RecipeService {
     const url = `${this.recipesUrl}/${id}`;
 
     return this.http.delete<Recipe>(url, httpOptions).pipe(
-      tap(_ => this.log(`deleted recipe id=${id}`)),
+      tap(_ => this.log(`deleted recipe id=${id} from your list`)),
       catchError(this.handleError<Recipe>('deleteRecipe'))
     );
   }
@@ -177,7 +173,6 @@ export class RecipeService {
         });
         return recipes;
       }),
-      tap(_ => this.log(`found recipes matching "${term}"`)),
       catchError(this.handleError<Recipe[]>('searchRecipes', []))
     );
   }

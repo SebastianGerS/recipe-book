@@ -17,7 +17,6 @@ import { COURSES, ALLERGIES, DIETS, HOLIDAYS, CUISINES, TOTALTIMES,
 export class RecipeSearchComponent implements OnInit {
   recipes$: Observable<any[]>;
   private searchTerms = new Subject<string>();
- 
   private courses = COURSES;
   private allergies = ALLERGIES;
   private diets = DIETS;
