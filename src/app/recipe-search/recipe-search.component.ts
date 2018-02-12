@@ -76,7 +76,6 @@ export class RecipeSearchComponent implements OnInit {
     } else {
       this.filters += `&${filter.parameter}`;
     }
-    console.log(this.filters);
   }
 
   add(recipe: Recipe): void {
