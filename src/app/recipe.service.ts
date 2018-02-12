@@ -18,8 +18,8 @@ export class RecipeService {
   private yummly = YUMMLY;
   private recipesUrl = 'api/recipes';
   private yummlyKeys = `_app_id=${this.yummly['app-id']}&_app_key=${this.yummly['app-key']}`;
-  private yummlyUrl = `http://api.yummly.com/v1/api/recipes?${this.yummlyKeys}&q=`;
-  private yummlyGetOneUrl = 'http://api.yummly.com/v1/api/recipe/';
+  private yummlyUrl = `https://api.yummly.com/v1/api/recipes?${this.yummlyKeys}&q=`;
+  private yummlyGetOneUrl = 'https://api.yummly.com/v1/api/recipe/';
 
   constructor(
     private http: HttpClient,

@@ -60,7 +60,7 @@ export class RecipeSearchComponent implements OnInit {
     const param = this.escapeSpecialCharacters(`&${filter.parameter}`);
     const regExp = RegExp(`${param}*`);
     let newRegExp = RegExp(`${TIMEBASE}*`);
- 
+
     if (newRegExp.test(param)) {
       this.totalTimes.forEach(element => {
         const toBeChecked = this.escapeSpecialCharacters(`&${element.parameter}`);
