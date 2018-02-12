@@ -54,12 +54,12 @@ export class RecipeService {
           } else {
             holiday = [];
           }
-         if (res['images']['hostedMediumUrl']) {
-            imgUrl = res['images']['hostedMediumUrl'];
-          } else if (res['images']['hostedSmallUrl']) {
-            imgUrl = res['images']['hostedSmallUrl'];
-          } else if (res['images']['hostedLargeUrl']) {
-            imgUrl = res['images']['hostedLargeUrl'];
+         if (res['images'][0]['hostedMediumUrl']) {
+            imgUrl = res['images'][0]['hostedMediumUrl'];
+          } else if (res['images'][0]['hostedSmallUrl']) {
+            imgUrl = res['images'][0]['hostedSmallUrl'];
+          } else if (res['images'][0]['hostedLargeUrl']) {
+            imgUrl = res['images'][0]['hostedLargeUrl'];
           } else {
             imgUrl = '';
           }
@@ -67,9 +67,9 @@ export class RecipeService {
             time = +res['totalTimeInSeconds'] / 60;
           }
 
-          recipe = 
+          recipe =
             new Recipe(
-              res['source']['sourceRecipeUrl'],
+              res['id'],
               res['name'],
               cuisine,
               course,
@@ -77,6 +77,7 @@ export class RecipeService {
               time,
               res['ingredientLines'],
               imgUrl,
+              res['source']['sourceRecipeUrl'],
           );
         return recipe;
       }),
@@ -100,14 +101,14 @@ export class RecipeService {
       tap(_ => this.log(`updated recipe id=${recipe.id}`)),
       catchError(this.handleError<any>('updateRecipe'))
     );
-  }
+  } // not yeat implemented
 
   addRecipe (recipe: Recipe): Observable<Recipe> {
     return this.http.get<Recipe>(`${this.recipesUrl}/${recipe.id}`).pipe(
       tap((recipe: Recipe) => this.log(`The recipe you tried to add is already in you list`)),
       catchError( res => {
         return this.http.post<Recipe>(this.recipesUrl, recipe, httpOptions).pipe(
-        tap((recipe: Recipe) => this.log(`Added recipe with id=${recipe.id} to your list`)),
+        tap((recipe: Recipe) => this.log(`The recipe was added to your list!`)),
         catchError(this.handleError<Recipe>('addRecipe'))
         );
       }
@@ -119,7 +120,7 @@ export class RecipeService {
     const url = `${this.recipesUrl}/${id}`;
 
     return this.http.delete<Recipe>(url, httpOptions).pipe(
-      tap(_ => this.log(`deleted recipe id=${id} from your list`)),
+      tap(_ => this.log(`The recipe was removed from your list`)),
       catchError(this.handleError<Recipe>('deleteRecipe'))
     );
   }

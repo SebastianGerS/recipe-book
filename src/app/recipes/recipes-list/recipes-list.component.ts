@@ -21,21 +21,6 @@ export class RecipesListComponent implements OnInit {
     this.recipeService.getRecipes()
     .subscribe(recipes => this.recipes = recipes);
   }
-  add(id: string, name: string, cuisines: string[], courses: string[] , holidays: string[], time: number ): void {
-    console.log(name);
-    name = name.trim();
-    cuisines = cuisines[0].split(',');
-    courses = courses[0].split(',');
-    holidays = holidays[0].split(',');
-
-    if (!name || !time) {
-      return;
-    }
-    this.recipeService.addRecipe({ id, name, cuisines, courses, holidays, time} as Recipe)
-      .subscribe(recipe => {
-        this.recipes.push(recipe);
-      });
-  }
 
   delete(recipe: Recipe): void {
     this.recipes = this.recipes.filter(h => h !== recipe);

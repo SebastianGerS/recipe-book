@@ -14,7 +14,6 @@ import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './message.service';
 import { AppRoutingModule } from './app-routing.module';
 import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
-import { InvertColorOnHoverDirective } from './invert-color-on-hover.directive';
 
 @NgModule({
   declarations: [
@@ -23,7 +22,6 @@ import { InvertColorOnHoverDirective } from './invert-color-on-hover.directive';
     RecipeDetailsComponent,
     MessagesComponent,
     RecipeSearchComponent,
-    InvertColorOnHoverDirective,
   ],
   imports: [
     BrowserModule,

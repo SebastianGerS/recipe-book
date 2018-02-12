@@ -9,6 +9,7 @@ export class Recipe {
   time: number;
   ingredients: any[];
   imgUrl: string;
+  recipeLink: string;
 
   constructor(
     id: string,
@@ -18,7 +19,8 @@ export class Recipe {
     holidays: [string],
     time: number,
     ingredients: [string],
-    imgUrl: string) {
+    imgUrl: string,
+    recipeLink: string = '') {
 
     this.id = id;
     this.name = name;
@@ -26,7 +28,8 @@ export class Recipe {
     this.courses = courses;
     this.holidays = holidays;
     this.time = time;
-    this.ingredients = ingredients || null;
-    this.imgUrl = imgUrl || null;
+    this.ingredients = ingredients;
+    this.imgUrl = imgUrl;
+    this.recipeLink = recipeLink;
   }
 }

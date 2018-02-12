@@ -22,3 +22,8 @@ nav a {
   border-radius: 5%;
   box-shadow: 0.1em 0.2em 0.3em black;
 }
+
+nav a:hover {
+  color: chartreuse;
+  background-color: azure;
+}

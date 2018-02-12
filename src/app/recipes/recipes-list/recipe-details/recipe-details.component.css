@@ -38,11 +38,15 @@
   width:auto;
   font-size: 1.25em;
   padding:0.25em 0.5em;
-  background-color: #607D8B;
+  background-color: chartreuse;
   color: azure;
   box-shadow: 0.1em 0.2em 0.3em black;
   margin: 0.25em;
   cursor: pointer;
+}
+.recipe button:hover {
+  background-color: azure;
+  color: chartreuse;
 }
 
 .recipe h2 {
