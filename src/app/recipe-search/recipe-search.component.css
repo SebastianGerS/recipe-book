@@ -71,7 +71,7 @@ input[type="checkbox" ]:checked, input[type="radio" ]:checked {
 
 }
 .search-bar input#search-box {
-  border: none;
+  border: 0.1em solid rgba(0,249,255,0.9);
   width:20em;
   height: 3em;
   text-align: center
