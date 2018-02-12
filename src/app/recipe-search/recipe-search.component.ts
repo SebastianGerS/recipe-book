@@ -6,8 +6,8 @@ import { debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 import { Recipe } from '../recipes/recipes-list/recipe-item/recipe';
 import { RecipeService } from '../recipe.service';
 import { RecipeFilter } from './recipefilter';
-import { COURSES, ALLERGIES, DIETS, HOLIDAYS, CUISINES,
-  COURSBASE, ALLERGIEBASE, DIETBASE, HOLIDAYBASE, CUISINEBASE } from './filtercolection';
+import { COURSES, ALLERGIES, DIETS, HOLIDAYS, CUISINES, TOTALTIMES,
+  COURSBASE, ALLERGIEBASE, DIETBASE, HOLIDAYBASE, CUISINEBASE, TIMEBASE } from './filtercolection';
 
 @Component({
   selector: 'app-recipe-search',
@@ -23,7 +23,7 @@ export class RecipeSearchComponent implements OnInit {
   private diets = DIETS;
   private holidays = HOLIDAYS;
   private cuisines = CUISINES;
-
+  private totalTimes = TOTALTIMES;
   private filters = '';
 
 
@@ -54,7 +54,17 @@ export class RecipeSearchComponent implements OnInit {
   handleParams (filter: RecipeFilter): void {
     const param = this.escapeSpecialCharacters(`&${filter.parameter}`);
     const regExp = RegExp(`${param}*`);
-    if (regExp.test(this.filters)) {
+
+    if (regExp.test(TIMEBASE)) {
+      this.totalTimes.forEach(element => {
+        const toBeChecked = this.escapeSpecialCharacters(`&${element.parameter}`);
+        const newRegexp = RegExp(`${toBeChecked}*`);
+        if(newRegexp.test(this.filters)) {
+          this.filters = this.filters.replace(`&${filter.parameter}`, '');
+        }
+      });
+      this.filters += `&${filter.parameter}`;
+    } else if (regExp.test(this.filters)) {
       this.filters = this.filters.replace(`&${filter.parameter}`, '');
     } else {
       this.filters += `&${filter.parameter}`;

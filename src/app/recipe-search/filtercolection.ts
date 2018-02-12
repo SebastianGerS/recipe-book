@@ -5,6 +5,7 @@
   export const DIETBASE = 'allowedDiet[]=';
   export const HOLIDAYBASE = 'allowedHoliday[]=holiday^holiday-';
   export const CUISINEBASE = 'allowedCuisine[]=cuisine^cuisine-';
+  export const TIMEBASE ='maxTotalTimeInSeconds=';
 
   export const COURSES = [
     new RecipeFilter('Desserts', `${this.COURSBASE}Desserts`),
@@ -86,4 +87,14 @@
     new RecipeFilter('Swedish', `${this.CUISINEBASE}swedish`),
     new RecipeFilter('Hungarian', `${this.CUISINEBASE}hungarian`),
     new RecipeFilter('Portugese', `${this.CUISINEBASE}portugese`),
+  ];
+  export const TOTALTIMES = [
+    new RecipeFilter('15 min', `${this.TIMEBASE}900`),
+    new RecipeFilter('30 min', `${this.TIMEBASE}1800`),
+    new RecipeFilter('45 min', `${this.TIMEBASE}2700`),
+    new RecipeFilter('1 h', `${this.TIMEBASE}3600`),
+    new RecipeFilter('1.5 h', `${this.TIMEBASE}5400`),
+    new RecipeFilter('2 h', `${this.TIMEBASE}7200`),
+    new RecipeFilter('3 h', `${this.TIMEBASE}10800`),
+
   ];
