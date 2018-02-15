@@ -18,7 +18,9 @@ export class AuthService {
     return this.http.post<any>('http://api.app.test/api/auth/login', {email: email, password: password})
     .pipe(
       map(res => {
-        console.log(res);
+        if (res && res.data.access_token) {
+          localStorage.setItem('currentUser', JSON.stringify(res));
+        }
         return res;
       })
     );
