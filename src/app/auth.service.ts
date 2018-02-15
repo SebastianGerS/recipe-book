@@ -9,7 +9,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable()
 export class AuthService {
 
-  constructor( 
+  constructor (
     private http: HttpClient,
     private jwtHelper: JwtHelperService,
     private messageService: MessageService) { }

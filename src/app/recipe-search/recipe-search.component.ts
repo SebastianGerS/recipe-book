@@ -31,7 +31,6 @@ export class RecipeSearchComponent implements OnInit {
   public showCuisines = false;
   public showTotalTimes = false;
 
-
   constructor(private recipeService: RecipeService) { }
   search(term: string): void {
     this.searchTerms.next(term);
