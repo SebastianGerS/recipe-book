@@ -14,6 +14,15 @@ import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './message.service';
 import { AppRoutingModule } from './app-routing.module';
 import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './auth.service';
+import { RegisterComponent } from './register/register.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { RestangularModule, Restangular } from 'ngx-restangular';
+
+export function RestangularConfigFactory(RestangularProvider) {
+  RestangularProvider.setBaseUrl('http://localhost');
+}
 
 @NgModule({
   declarations: [
@@ -22,6 +31,8 @@ import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
     RecipeDetailsComponent,
     MessagesComponent,
     RecipeSearchComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,9 +40,18 @@ import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
     AppRoutingModule,
     HttpClientModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService, {passThruUnknownUrl: true}),
-    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+    RestangularModule.forRoot(RestangularConfigFactory),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('access_token');
+        },
+        whitelistedDomains: ['http://api.app.test']
+      }
+    })
   ],
-  providers: [RecipeService, MessageService],
+  providers: [RecipeService, MessageService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

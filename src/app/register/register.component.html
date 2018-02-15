@@ -1,0 +1,7 @@
+<form #credentials="ngForm" (ngSubmit)="register(credentials)">
+  <input #name="ngModel"  ngModel name="name" type="text" required placeholder="name">
+  <input #email="ngModel"  ngModel name="email" type="email" required placeholder="Email">
+  <input #password="ngModel" ngModel name="password" type="password" required placeholder="Password">
+  <input #passwordConfirmation="ngModel" ngModel name="passwordConfirmation" type="password" required placeholder="Comfirm Password">
+  <button> Register</button>
+</form>
