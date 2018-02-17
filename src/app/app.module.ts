@@ -19,6 +19,7 @@ import { AuthService } from './auth.service';
 import { RegisterComponent } from './register/register.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { RestangularModule, Restangular } from 'ngx-restangular';
+import { ListService } from './list.service';
 
 export function RestangularConfigFactory(RestangularProvider) {
   RestangularProvider.setBaseUrl('http://localhost');
@@ -45,13 +46,13 @@ export function RestangularConfigFactory(RestangularProvider) {
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
-          return localStorage.getItem('access_token');
+          return localStorage.getItem(JSON.parse(localStorage.getItem('currentUser')));
         },
         whitelistedDomains: ['http://api.app.test']
       }
     })
   ],
-  providers: [RecipeService, MessageService, AuthService],
+  providers: [RecipeService, MessageService, AuthService, ListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

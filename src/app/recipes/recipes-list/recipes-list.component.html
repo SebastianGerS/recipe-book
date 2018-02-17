@@ -1,3 +1,4 @@
+
 <ul class="recipes" *ngIf="recipes.length; else elseBlock">
     <li *ngFor="let recipe of recipes">
         <a routerLink="/recipe/{{recipe.id}}" >
@@ -12,3 +13,11 @@
 <ng-template #elseBlock>
     <h4>You have not added any recipes to your list yeat</h4>
 </ng-template>
+<form #newList="ngForm" (ngSubmit)="createList(newList)">
+    <input #name="ngModel" ngModel name="name" required placeholder="name"> 
+    <select #type="ngModel" ngModel name="type" required>
+        <option value="recipes">Recipes</option>
+        <option value="ingredients">Ingredients</option>
+    </select>
+    <button>Create list</button>
+</form>
