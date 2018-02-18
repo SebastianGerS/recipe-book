@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { NgForm } from '@angular/forms';
 import { RecipeService } from '../../../recipe.service';
+import { ListService } from '../../../list.service';
 import {Recipe} from '../recipe-item/recipe';
 
 @Component({
@@ -11,17 +13,20 @@ import {Recipe} from '../recipe-item/recipe';
 })
 
 export class RecipeDetailsComponent implements OnInit {
+  private lists: any[];
 
   @Input() recipe: Recipe;
 
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
+    private listService: ListService,
     private location: Location
   ) {}
 
   ngOnInit(): void {
     this.getRecipe();
+    this.getLists();
   }
 
   getRecipe(): void {
@@ -38,8 +43,15 @@ export class RecipeDetailsComponent implements OnInit {
     .subscribe(() => this.goBack());
   }
 
-  add(recipe: Recipe): void {
-    this.recipeService.addRecipe(recipe)
-      .subscribe();
+  add(list: NgForm, recipe: Recipe): void {
+    const listId = +list.value.listId;
+    console.log(listId);
+    this.listService.addRecipe(listId, recipe)
+    .subscribe();
+  }
+
+  getLists(): void {
+    this.listService.getLists()
+    .subscribe(lists => this.lists = lists);
   }
 }

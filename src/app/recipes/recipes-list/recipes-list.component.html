@@ -1,22 +1,36 @@
 
-<ul class="recipes" *ngIf="recipes.length; else elseBlock">
-    <li *ngFor="let recipe of recipes">
-        <a routerLink="/recipe/{{recipe.id}}" >
-            {{recipe.name | slice:0:25}}
-        </a>
-      <div>
-        <button class="delete" title="delete recipe"
-          (click)="delete(recipe)">x</button>
-      </div>
+<ul *ngIf="lists">
+    <li *ngFor="let list of lists">
+        <h3>{{list.name}}</h3>
+        <ul class="recipes" *ngIf="list.recipes">
+            <li *ngFor="let recipe of list.recipes">
+                <a routerLink="/recipe/{{recipe.id}}" >
+                    {{recipe.name | slice:0:25}}
+                </a>
+              <div>
+                <button class="delete" title="delete recipe"
+                  (click)="delete(recipe)">x</button>
+              </div>
+            </li>
+        </ul>
+        <ul class="recipes" *ngIf="list.ingredients">
+            <li *ngFor="let ingredient of list.ingredients">
+                <h4>
+                    {{ingredient.name}}
+                </h4>
+              <div>
+                <button class="delete" title="delete ingredient"
+                  (click)="delete(ingredient)">x</button>
+              </div>
+            </li>
+        </ul>
     </li>
 </ul>
-<ng-template #elseBlock>
-    <h4>You have not added any recipes to your list yeat</h4>
-</ng-template>
+
 <form #newList="ngForm" (ngSubmit)="createList(newList)">
     <input #name="ngModel" ngModel name="name" required placeholder="name"> 
     <select #type="ngModel" ngModel name="type" required>
-        <option value="recipes">Recipes</option>
+        <option value="recipes" selected>Recipes</option>
         <option value="ingredients">Ingredients</option>
     </select>
     <button>Create list</button>

@@ -29,12 +29,7 @@ export class AuthService {
   register( name: string, email: string, password: string): Observable<any> {
     console.log(name);
     return this.http.post<any>('http://api.app.test/api/auth/register', {name: name, email: email, password: password})
-    .pipe(
-      map(res => {
-        console.log(res);
-        return res;
-      } )
-    );
+    .pipe();
   }
 
   logout( credentials: {}): Observable<any> {

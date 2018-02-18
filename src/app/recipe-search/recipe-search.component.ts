@@ -31,7 +31,8 @@ export class RecipeSearchComponent implements OnInit {
   public showCuisines = false;
   public showTotalTimes = false;
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(
+    private recipeService: RecipeService) { }
   search(term: string): void {
     this.searchTerms.next(term);
   }
@@ -75,11 +76,6 @@ export class RecipeSearchComponent implements OnInit {
     } else {
       this.filters += `&${filter.parameter}`;
     }
-  }
-
-  add(recipe: Recipe): void {
-      this.recipeService.addRecipe(recipe)
-      .subscribe();
   }
 
 }

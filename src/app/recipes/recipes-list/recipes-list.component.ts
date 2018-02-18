@@ -10,17 +10,18 @@ import { NgForm } from '@angular/forms';
 })
 
 export class RecipesListComponent implements OnInit {
+  lists: any[];
   recipes: Recipe[];
 
   constructor(private listService: ListService, private recipeService: RecipeService) { }
 
   ngOnInit() {
-    this.getRecipes();
+    this.getLists();
   }
 
-  getRecipes(): void {
-    this.recipeService.getRecipes()
-    .subscribe(recipes => this.recipes = recipes);
+  getLists(): void {
+    this.listService.getLists()
+    .subscribe(lists => this.lists = lists);
   }
 
   delete(recipe: Recipe): void {

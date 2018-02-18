@@ -31,6 +31,11 @@
     <a href="{{recipe.recipeLink}}">Click for more detailed instructions</a>
     <div>
       <button id="goBack"(click)="goBack()">go back</button>
-      <button (click)="add(recipe)">Add to list</button>
+      <form #selectedList="ngForm" (ngSubmit)="add(selectedList, recipe)">
+        <select #list="ngModel" name="listId" ngModel >
+        <option *ngFor="let list of lists" value="{{list.id}}">{{list.name}}</option>
+        </select>
+        <button>add to list</button>
+      </form>
     </div>
   </article>
