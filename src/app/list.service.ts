@@ -37,13 +37,25 @@ private url: string;
 
   addRecipe (listId: number, recipe: Recipe): Observable<Recipe> {
     this.token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
-        return this.http.post<Recipe>(`${this.url}/${listId}/recipes`, { recipe: recipe }).pipe(
+        return this.http.post<Recipe>(`${this.url}/${listId}/recipes${this.token}`, { recipe: recipe }).pipe(
         map( res => {
+          console.log(res);
           return res; }),
         tap((recipe: Recipe) => this.log(`${recipe['message']}`)),
         catchError(this.handleError<Recipe>('addRecipe'))
         );
   }
+
+  getRecipeFromList(listId: number, recipeId: number): Observable <Recipe> {
+    this.token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
+    return this.http.get<Recipe>(`${this.url}/${listId}/recipes/${recipeId}${this.token}`).pipe(
+      map( res => {
+        console.log(res);
+        return res['recipe']; }),
+      catchError(this.handleError<Recipe>('addRecipe'))
+    );
+  }
+
   private log(message: string) {
     this.messageService.add(message);
   }

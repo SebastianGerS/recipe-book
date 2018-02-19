@@ -25,7 +25,11 @@ export class RecipeDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getRecipe();
+    if (this.route.snapshot.paramMap.get('listId')) {
+      this.getRecipeFromList();
+    } else {
+      this.getRecipe();
+    }
     this.getLists();
   }
 
@@ -33,6 +37,17 @@ export class RecipeDetailsComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.recipeService.getRecipe(id)
       .subscribe(recipe => this.recipe = recipe);
+  }
+
+  getRecipeFromList(): void {
+    const recipeId = +this.route.snapshot.paramMap.get('recipeId');
+    const listId = +this.route.snapshot.paramMap.get('listId');
+    this.listService.getRecipeFromList(listId, recipeId)
+    .subscribe(recipe => {
+        console.log(recipe);
+        return  this.recipe = recipe;
+      }
+     );
   }
 
   goBack(): void {

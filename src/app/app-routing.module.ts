@@ -8,8 +8,9 @@ import { RegisterComponent } from './register/register.component';
 const routes: Routes = [
   {path: '', redirectTo: '/search', pathMatch: 'full'},
   {path: 'search', component: RecipeSearchComponent},
-  {path: 'recipes', component: RecipesListComponent},
+  {path: 'lists', component: RecipesListComponent},
   {path: 'recipe/:id', component: RecipeDetailsComponent},
+  {path: 'lists/:listId/recipe/:recipeId', component: RecipeDetailsComponent},
   {path: 'register', component: RegisterComponent},
 ];
 

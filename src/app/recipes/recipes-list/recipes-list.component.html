@@ -4,7 +4,7 @@
         <h3>{{list.name}}</h3>
         <ul class="recipes" *ngIf="list.recipes">
             <li *ngFor="let recipe of list.recipes">
-                <a routerLink="/recipe/{{recipe.id}}" >
+                <a routerLink="/lists/{{list.id}}/recipe/{{recipe.id}}" >
                     {{recipe.name | slice:0:25}}
                 </a>
               <div>
