@@ -13,7 +13,8 @@ import { Recipe } from '../recipe-item/recipe';
 })
 
 export class RecipeDetailsComponent implements OnInit {
-  private lists: any[];
+  private ingredientLists: any[];
+  private recipeLists: any [];
 
   @Input() recipe: Recipe;
 
@@ -54,14 +55,23 @@ export class RecipeDetailsComponent implements OnInit {
     .subscribe(() => this.goBack());
   }
 
-  add(list: NgForm, recipe: Recipe): void {
+  addRecipe(list: NgForm, recipe: Recipe): void {
     const listId = +list.value.listId;
     this.listService.addRecipe(listId, recipe)
     .subscribe();
   }
 
+  addIngredients(list: NgForm, ingredients: any[]): void {
+    const listId = +list.value.listId;
+    this.listService.addIngredients(listId, ingredients)
+    .subscribe();
+  }
+
   getLists(): void {
     this.listService.getLists()
-    .subscribe(lists => this.lists = lists);
+    .subscribe(lists => {
+      this.recipeLists = lists.filter(r => r.type  === 'recipes');
+      this.ingredientLists = lists.filter(r => r.type === 'ingredients');
+    });
   }
 }

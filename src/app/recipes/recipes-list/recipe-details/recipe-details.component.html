@@ -26,16 +26,28 @@
       <h4>Ingredients:</h4>
       <li *ngFor="let ingredient of recipe.ingredients">
         {{ingredient}}
+        <form #selectedIngredientsList="ngForm" (ngSubmit)="addIngredients(selectedIngredientsList, [ingredient])">
+            <select #list="ngModel" name="listId" ngModel >
+              <option *ngFor="let list of ingredientLists" value="{{list.id}}">{{list.name}}</option>
+            </select>
+            <button>add ingredient to list</button>
+          </form>
       </li>
     </ul>
+    <form #selectedIngredientsList="ngForm" (ngSubmit)="addIngredients(selectedIngredientsList, recipe.ingredients)">
+      <select #list="ngModel" name="listId" ngModel >
+        <option *ngFor="let list of ingredientLists" value="{{list.id}}">{{list.name}}</option>
+      </select>
+      <button>add all ingredirents to list</button>
+    </form>
     <a href="{{recipe.recipeLink}}">Click for more detailed instructions</a>
     <div>
       <button id="goBack"(click)="goBack()">go back</button>
-      <form #selectedList="ngForm" (ngSubmit)="add(selectedList, recipe)">
+      <form #selectedList="ngForm" (ngSubmit)="addRecipe(selectedList, recipe)">
         <select #list="ngModel" name="listId" ngModel >
-        <option *ngFor="let list of lists" value="{{list.id}}">{{list.name}}</option>
+        <option *ngFor="let list of recipeLists" value="{{list.id}}">{{list.name}}</option>
         </select>
-        <button>add to list</button>
+        <button>add recipe to list</button>
       </form>
     </div>
   </article>

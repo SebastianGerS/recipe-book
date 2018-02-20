@@ -33,6 +33,15 @@ export class RecipesListComponent implements OnInit {
     this.listService.deleteRecipeFromList(+listId, +recipe.id).subscribe();
   }
 
+  deleteIngredientFromList(listId: number, ingredient: any): void {
+    this.lists.forEach(list => {
+      if (list.id === listId) {
+        list.ingredients = list.ingredients.filter(h => h !== ingredient);
+      }
+    });
+    this.listService.deleteIngredientFromList(+listId, +ingredient.id).subscribe();
+  }
+
   deleteList(list: any): void {
     this.lists = this.lists.filter(h => h !== list);
     this.listService.deleteList(+list.id).subscribe();

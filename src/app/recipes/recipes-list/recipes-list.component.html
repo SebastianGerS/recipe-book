@@ -16,12 +16,12 @@
         </ul>
         <ul class="recipes" *ngIf="list.ingredients">
             <li *ngFor="let ingredient of list.ingredients">
-                <h4>
-                    {{ingredient.name}}
-                </h4>
+                <a>
+                  {{ingredient.amount}} {{ingredient.unit_of_measurement}} {{ingredient.name}}
+                </a>
               <div>
                 <button class="delete" title="delete ingredient"
-                  (click)="delete(ingredient)">x</button>
+                  (click)="deleteIngredientFromList(list.id, ingredient)">x</button>
               </div>
             </li>
         </ul>
