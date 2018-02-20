@@ -14,10 +14,10 @@ private url: string;
     private http: HttpClient,
     private messageService: MessageService) {
       this.url = 'http://api.app.test/api/auth/lists';
+      this.token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
     }
 
   getLists(): Observable<any> {
-    this.token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
     return this.http.get(`${this.url}${this.token}`)
       .pipe(
         map(res => {
@@ -28,7 +28,6 @@ private url: string;
   }
 
   createList(name: string, type: string): Observable<any> {
-    this.token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
     return this.http.post<any>(`${this.url}${this.token}`, {name: name , type: type})
     .pipe(
       tap(_ => this.log(`list was created`)),
@@ -37,7 +36,6 @@ private url: string;
   }
 
   addRecipe (listId: number, recipe: Recipe): Observable<Recipe> {
-    this.token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
         return this.http.post<Recipe>(`${this.url}/${listId}/recipes${this.token}`, { recipe: recipe }).pipe(
         map( res => {
           return res; }),
@@ -47,7 +45,6 @@ private url: string;
   }
 
   getRecipeFromList(listId: number, recipeId: number): Observable <Recipe> {
-    this.token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
     return this.http.get<Recipe>(`${this.url}/${listId}/recipes/${recipeId}${this.token}`).pipe(
       map( res => {
         return res['recipe']; }),
@@ -56,7 +53,6 @@ private url: string;
   }
 
   deleteRecipeFromList(listId: number, recipeId: number): Observable<any> {
-    this.token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
     return this.http.delete<any>( `${this.url}/${listId}}/recipes/${recipeId}${this.token}`).pipe(
       map(res => {
         return res;
@@ -66,7 +62,6 @@ private url: string;
     );
   }
   deleteList(listId: number): Observable<any> {
-    this.token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
     return this.http.delete<any>( `${this.url}/${listId}}${this.token}`).pipe(
       map(res => {
         return res;

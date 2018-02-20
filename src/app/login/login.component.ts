@@ -9,13 +9,13 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  private loggedIn: boolean;
+  loggedIn: boolean;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.loggedIn = this.authService.isLoggedIn();
-    this.checkIfaboutToExipre();
+    this.checkIfAboutToExipre();
   }
 
   attemptLogin(credetials: NgForm): void {
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     this.loggedIn = this.authService.logout();
   }
 
-  checkIfaboutToExipre(): void {
+  checkIfAboutToExipre(): void {
     setInterval(() => { this.authService.checkIfRefreshIsPending(); }, 1000 * 60 * 10);
   }
 

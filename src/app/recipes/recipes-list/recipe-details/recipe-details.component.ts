@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { RecipeService } from '../../../recipe.service';
 import { ListService } from '../../../list.service';
-import {Recipe} from '../recipe-item/recipe';
+import { Recipe } from '../recipe-item/recipe';
 
 @Component({
   selector: 'app-recipe-details',
@@ -43,11 +43,7 @@ export class RecipeDetailsComponent implements OnInit {
     const recipeId = +this.route.snapshot.paramMap.get('recipeId');
     const listId = +this.route.snapshot.paramMap.get('listId');
     this.listService.getRecipeFromList(listId, recipeId)
-    .subscribe(recipe => {
-        console.log(recipe);
-        return  this.recipe = recipe;
-      }
-     );
+    .subscribe(recipe => this.recipe = recipe );
   }
 
   goBack(): void {
@@ -60,7 +56,6 @@ export class RecipeDetailsComponent implements OnInit {
 
   add(list: NgForm, recipe: Recipe): void {
     const listId = +list.value.listId;
-    console.log(listId);
     this.listService.addRecipe(listId, recipe)
     .subscribe();
   }
