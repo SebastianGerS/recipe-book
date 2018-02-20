@@ -52,4 +52,14 @@ export class RecipesListComponent implements OnInit {
     const type = newlist.value.type;
     this.listService.createList(name, type).subscribe(lists => this.lists = lists);
   }
+
+  addIngredient(form: NgForm): void {
+    const listId = +form.value.listId;
+    const ingredient = [
+      `${form.value.amount} ${form.value.unit} ${form.value.name}`
+    ];
+
+    this.listService.addIngredients(listId, ingredient)
+    .subscribe(lists => this.lists = lists);
+  }
 }

@@ -64,6 +64,7 @@ private url: string;
   addIngredients(listId: number, ingredients: any []) {
     return this.http.post<any>(`${this.url}/${listId}/ingredients${this.token}`, { ingredients: ingredients }).pipe(
       tap(r => this.log(`${r['message']}`)),
+      map(res => res['lists']),
       catchError(this.handleError<any>('addIngredients'))
     );
   }

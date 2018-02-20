@@ -24,6 +24,13 @@
                   (click)="deleteIngredientFromList(list.id, ingredient)">x</button>
               </div>
             </li>
+            <form #addIngredientForm="ngForm" (ngSubmit)="addIngredient(addIngredientForm)">
+                <input #listId="ngModel" name="listId" ngModel="{{list.id}}" hidden required>
+                <input #amount="ngModel" type="number" name="amount" ngModel required placeholder="amount">
+                <input #unit="ngModel" name="unit" ngModel required placeholder="unit">
+                <input #name="ngModel" name="name" ngModel required placeholder="name">
+                <button>add ingredient to list</button>
+            </form>
         </ul>
     </li>
 </ul>
