@@ -37,6 +37,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('currentUser');
+    this.log('You have been logged out');
     return this.isLoggedIn();
   }
 
