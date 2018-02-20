@@ -24,9 +24,18 @@ export class RecipesListComponent implements OnInit {
     .subscribe(lists => this.lists = lists);
   }
 
-  delete(recipe: Recipe): void {
-    this.recipes = this.recipes.filter(h => h !== recipe);
-    this.recipeService.deleteRecipe(recipe).subscribe();
+  deleteRecipeFromList(listId: number, recipe: Recipe): void {
+    this.lists.forEach(list => {
+      if (list.id === listId) {
+        list.recipes = list.recipes.filter(h => h !== recipe);
+      }
+    });
+    this.listService.deleteRecipeFromList(+listId, +recipe.id).subscribe();
+  }
+
+  deleteList(list: any): void {
+    this.lists = this.lists.filter(h => h !== list);
+    this.listService.deleteList(+list.id).subscribe();
   }
 
   createList(newlist: NgForm): void {

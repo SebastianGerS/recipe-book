@@ -26,6 +26,7 @@ private url: string;
         catchError(this.handleError<any>('getLists'))
       );
   }
+
   createList(name: string, type: string): Observable<any> {
     this.token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
     return this.http.post<any>(`${this.url}${this.token}`, {name: name , type: type})
@@ -39,9 +40,8 @@ private url: string;
     this.token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
         return this.http.post<Recipe>(`${this.url}/${listId}/recipes${this.token}`, { recipe: recipe }).pipe(
         map( res => {
-          console.log(res);
           return res; }),
-        tap((recipe: Recipe) => this.log(`${recipe['message']}`)),
+        tap((r: Recipe) => this.log(`${r['message']}`)),
         catchError(this.handleError<Recipe>('addRecipe'))
         );
   }
@@ -50,9 +50,29 @@ private url: string;
     this.token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
     return this.http.get<Recipe>(`${this.url}/${listId}/recipes/${recipeId}${this.token}`).pipe(
       map( res => {
-        console.log(res);
         return res['recipe']; }),
       catchError(this.handleError<Recipe>('addRecipe'))
+    );
+  }
+
+  deleteRecipeFromList(listId: number, recipeId: number): Observable<any> {
+    this.token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
+    return this.http.delete<any>( `${this.url}/${listId}}/recipes/${recipeId}${this.token}`).pipe(
+      map(res => {
+        return res;
+      }),
+      tap(_ => this.log(_.message)),
+      catchError(this.handleError<any>('deleteRecipe'))
+    );
+  }
+  deleteList(listId: number): Observable<any> {
+    this.token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
+    return this.http.delete<any>( `${this.url}/${listId}}${this.token}`).pipe(
+      map(res => {
+        return res;
+      }),
+      tap(_ => this.log(_.message)),
+      catchError(this.handleError<any>('deleteRecipe'))
     );
   }
 

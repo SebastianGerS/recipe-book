@@ -2,6 +2,7 @@
 <ul *ngIf="lists">
     <li *ngFor="let list of lists">
         <h3>{{list.name}}</h3>
+        <button class="delete" title="delete list" (click)="deleteList(list)">delete list</button>
         <ul class="recipes" *ngIf="list.recipes">
             <li *ngFor="let recipe of list.recipes">
                 <a routerLink="/lists/{{list.id}}/recipe/{{recipe.id}}" >
@@ -9,7 +10,7 @@
                 </a>
               <div>
                 <button class="delete" title="delete recipe"
-                  (click)="delete(recipe)">x</button>
+                  (click)="deleteRecipeFromList(list.id, recipe)">x</button>
               </div>
             </li>
         </ul>
