@@ -35,9 +35,22 @@ export class AuthService {
     );
   }
 
-  logout( ) {
+  logout() {
     localStorage.removeItem('currentUser');
     return this.isLoggedIn();
+  }
+
+  refresh(): Observable<any> {
+    const token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
+    return this.http.post<any>(`http://api.app.test/api/auth/refresh${token}`, {})
+    .pipe(
+      map(res => {
+        if (res && res.data.access_token) {
+          localStorage.setItem('currentUser', JSON.stringify(res));
+        }
+        return this.isLoggedIn();
+      })
+    );
   }
 
   isLoggedIn() {
@@ -53,7 +66,7 @@ export class AuthService {
         return true;
 
       } else {
-
+ 
         return false;
       }
 
@@ -61,6 +74,21 @@ export class AuthService {
 
     return false;
 
+  }
+
+  checkIfRefreshIsPending() {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+
+    if (user) {
+
+      const tokenExpDate = this.jwtHelper.getTokenExpirationDate(user.data['access_token']);
+      const date = new Date();
+      const offset = tokenExpDate.getTimezoneOffset() - date.getTimezoneOffset();
+
+      if ((tokenExpDate.getTime() - date.getTime() <= (1000 * 60 * 10 + 1000 * 60 * offset) )) {
+        this.log('your session is about to expire, would you like to refresh? (else you will be logged out in 10 min)');
+      }
+    }
   }
 
   private log(message: string) {

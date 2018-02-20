@@ -1,8 +1,16 @@
 <section *ngIf="messageService.message.length">
- 
   <div class="modal" *ngFor="let message of messageService.message">
       <h2>Message</h2>
       <p>{{message}}</p>
-      <button class="clear" (click)="messageService.clear()" appInvertColorOnHover>Ok</button>
+      <button class="clear" (click)="messageService.clear()">Ok</button>
   </div>
 </section>
+<section *ngIf="messageService.refreshMessage.length">
+  <div class="modal" *ngFor="let message of messageService.refreshMessage">
+    <h2>Message</h2>
+    <p>{{message}}</p>
+    <button class="clear" (click)="messageService.clear(); refresh()" >Ok</button>
+    <button class="clear" (click)="messageService.clear()" >Cansel</button>
+  </div>
+</section>
+

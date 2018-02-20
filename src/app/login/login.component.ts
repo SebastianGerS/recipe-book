@@ -15,12 +15,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loggedIn = this.authService.isLoggedIn();
+    this.checkIfaboutToExipre();
   }
 
   attemptLogin(credetials: NgForm): void {
     const email = credetials.value.email;
     const password = credetials.value.password;
-    const selfe = this;
+
     this.authService.login(email, password).subscribe( res => {
       this.loggedIn = res;
     });
@@ -28,6 +29,10 @@ export class LoginComponent implements OnInit {
 
   logout(): void {
     this.loggedIn = this.authService.logout();
+  }
+
+  checkIfaboutToExipre(): void {
+    setInterval(() => { this.authService.checkIfRefreshIsPending(); }, 1000 * 60 * 10);
   }
 
 
