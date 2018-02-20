@@ -21,18 +21,56 @@ export class AuthService {
         if (res && res.data.access_token) {
           localStorage.setItem('currentUser', JSON.stringify(res));
         }
-        return res;
+        return this.isLoggedIn();
       })
     );
   }
 
   register( name: string, email: string, password: string): Observable<any> {
-    console.log(name);
+
     return this.http.post<any>('http://api.app.test/api/auth/register', {name: name, email: email, password: password})
-    .pipe();
+    .pipe(
+      tap(_ => this.login(email, password)),
+      catchError(this.handleError<any>('deleteRecipe'))
+    );
   }
 
-  logout( credentials: {}): Observable<any> {
-    return;
+  logout( ) {
+    localStorage.removeItem('currentUser');
+    return this.isLoggedIn();
+  }
+
+  isLoggedIn() {
+
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+
+    if (user) {
+
+      const token = user.data['access_token'];
+
+      if (token && !this.jwtHelper.isTokenExpired(token)) {
+
+        return true;
+
+      } else {
+
+        return false;
+      }
+
+    }
+
+    return false;
+
+  }
+
+  private log(message: string) {
+    this.messageService.add(message);
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      this.log(`${operation} failed: ${error.message}`);
+      return of(result as T);
+    };
   }
 }

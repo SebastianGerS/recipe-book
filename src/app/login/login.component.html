@@ -1,6 +1,10 @@
+<div *ngIf="!loggedIn; else logoutButton">
 <form #credentials="ngForm" (ngSubmit)="attemptLogin(credentials)">
   <input #email="ngModel"  ngModel name="email" type="email" required placeholder="Email">
   <input #password="ngModel" ngModel name="password" type="password" required placeholder="Password">
   <button>Login</button>
 </form>
 <a routerLink="/register">Register</a>
+</div>
+
+<ng-template #logoutButton> <button (click)="logout()">Logout</button></ng-template>

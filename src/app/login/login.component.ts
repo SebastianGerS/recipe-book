@@ -9,16 +9,25 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  private loggedIn: boolean;
+
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.loggedIn = this.authService.isLoggedIn();
   }
 
   attemptLogin(credetials: NgForm): void {
     const email = credetials.value.email;
     const password = credetials.value.password;
+    const selfe = this;
+    this.authService.login(email, password).subscribe( res => {
+      this.loggedIn = res;
+    });
+  }
 
-    this.authService.login(email, password).subscribe();
+  logout(): void {
+    this.loggedIn = this.authService.logout();
   }
 
 
