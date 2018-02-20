@@ -50,6 +50,6 @@ export class RecipesListComponent implements OnInit {
   createList(newlist: NgForm): void {
     const name = newlist.value.name;
     const type = newlist.value.type;
-    this.listService.createList(name, type).subscribe();
+    this.listService.createList(name, type).subscribe(lists => this.lists = lists);
   }
 }

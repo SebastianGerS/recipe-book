@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
-import {Recipe} from './recipes/recipes-list/recipe-item/recipe';
+import { Recipe } from './recipes/recipes-list/recipe-item/recipe';
 
 @Injectable()
 export class ListService {
@@ -20,10 +20,7 @@ private url: string;
   getLists(): Observable<any> {
     return this.http.get(`${this.url}${this.token}`)
       .pipe(
-        map(res => {
-          console.log(res);
-          return res['lists'];
-        }),
+        map(res => res['lists']),
         catchError(this.handleError<any>('getLists'))
       );
   }
@@ -31,6 +28,7 @@ private url: string;
   createList(name: string, type: string): Observable<any> {
     return this.http.post<any>(`${this.url}${this.token}`, {name: name , type: type})
     .pipe(
+      map(res => res['lists']),
       tap(_ => this.log(`list was created`)),
       catchError(this.handleError<any>('createList'))
     );
@@ -38,8 +36,6 @@ private url: string;
 
   addRecipe (listId: number, recipe: Recipe): Observable<Recipe> {
     return this.http.post<Recipe>(`${this.url}/${listId}/recipes${this.token}`, { recipe: recipe }).pipe(
-      map( res => {
-        return res; }),
       tap((r: Recipe) => this.log(`${r['message']}`)),
       catchError(this.handleError<Recipe>('addRecipe'))
     );
@@ -47,35 +43,26 @@ private url: string;
 
   getRecipeFromList(listId: number, recipeId: number): Observable <Recipe> {
     return this.http.get<Recipe>(`${this.url}/${listId}/recipes/${recipeId}${this.token}`).pipe(
-      map( res => {
-        return res['recipe']; }),
+      map( res => res['recipe'] ),
       catchError(this.handleError<Recipe>('addRecipe'))
     );
   }
 
   deleteRecipeFromList(listId: number, recipeId: number): Observable<any> {
     return this.http.delete<any>( `${this.url}/${listId}}/recipes/${recipeId}${this.token}`).pipe(
-      map(res => {
-        return res;
-      }),
       tap(_ => this.log(_.message)),
-      catchError(this.handleError<any>('deleteRecipe'))
+      catchError(this.handleError<any>('deleteRecipeFromList'))
     );
   }
   deleteIngredientFromList(listId: number, ingredientId: number): Observable<any> {
     return this.http.delete<any>( `${this.url}/${listId}/ingredients/${ingredientId}${this.token}`).pipe(
-      map(res => {
-        return res;
-      }),
       tap(_ => this.log(_.message)),
-      catchError(this.handleError<any>('deleteRecipe'))
+      catchError(this.handleError<any>('deleteIngredientFromList'))
     );
   }
 
   addIngredients(listId: number, ingredients: any []) {
     return this.http.post<any>(`${this.url}/${listId}/ingredients${this.token}`, { ingredients: ingredients }).pipe(
-      map( res => {
-        return res; }),
       tap(r => this.log(`${r['message']}`)),
       catchError(this.handleError<any>('addIngredients'))
     );
@@ -83,9 +70,6 @@ private url: string;
 
   deleteList(listId: number): Observable<any> {
     return this.http.delete<any>( `${this.url}/${listId}}${this.token}`).pipe(
-      map(res => {
-        return res;
-      }),
       tap(_ => this.log(_.message)),
       catchError(this.handleError<any>('deleteRecipe'))
     );
