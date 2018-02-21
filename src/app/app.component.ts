@@ -12,7 +12,7 @@ export class AppComponent implements AfterViewInit {
   @ViewChild(LoginComponent)
   private loginComponent: LoginComponent;
 
-  private loggedIn = false;
+  public loggedIn = false;
 
   ngAfterViewInit() {
     setTimeout(() => this.loggedIn = this.loginComponent.loggedIn, 1);
