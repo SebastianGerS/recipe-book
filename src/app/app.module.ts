@@ -41,7 +41,7 @@ import { ListService } from './list.service';
         tokenGetter: () => {
           return localStorage.getItem(JSON.parse(localStorage.getItem('currentUser')));
         },
-        whitelistedDomains: ['http://api.app.test']
+        whitelistedDomains: ['http://lab4.sebastiangerstelsollerman.chas.academy']
       }
     })
   ],

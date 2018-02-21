@@ -8,30 +8,34 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class AuthService {
-
+  private url: string;
   constructor (
     private http: HttpClient,
     private jwtHelper: JwtHelperService,
-    private messageService: MessageService) { }
+    private messageService: MessageService
+  ) {
+      this.url = 'http://lab4.sebastiangerstelsollerman.chas.academy/api/auth';
+    }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post<any>('http://api.app.test/api/auth/login', {email: email, password: password})
+    return this.http.post<any>(`${this.url}/login`, {email: email, password: password})
     .pipe(
       map(res => {
         if (res && res.data.access_token) {
           localStorage.setItem('currentUser', JSON.stringify(res));
         }
         return this.isLoggedIn();
-      })
+      }),
+      catchError(this.handleError<any>('login'))
     );
   }
 
   register( name: string, email: string, password: string): Observable<any> {
 
-    return this.http.post<any>('http://api.app.test/api/auth/register', {name: name, email: email, password: password})
+    return this.http.post<any>(`${this.url}/register`, {name: name, email: email, password: password})
     .pipe(
       tap(_ => this.login(email, password)),
-      catchError(this.handleError<any>('deleteRecipe'))
+      catchError(this.handleError<any>('register'))
     );
   }
 
@@ -43,7 +47,7 @@ export class AuthService {
 
   refresh(): Observable<any> {
     const token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
-    return this.http.post<any>(`http://api.app.test/api/auth/refresh${token}`, {})
+    return this.http.post<any>(`${this.url}/refresh${token}`, {})
     .pipe(
       map(res => {
         if (res && res.data.access_token) {
@@ -65,16 +69,10 @@ export class AuthService {
       if (token && !this.jwtHelper.isTokenExpired(token)) {
 
         return true;
-
-      } else {
-
-        return false;
       }
-
     }
 
     return false;
-
   }
 
   checkIfRefreshIsPending() {
@@ -94,7 +92,7 @@ export class AuthService {
     }
   }
 
-  private log(message: string) {
+  public log(message: string) {
     this.messageService.add(message);
   }
 

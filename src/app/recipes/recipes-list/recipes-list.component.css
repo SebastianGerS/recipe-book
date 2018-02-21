@@ -1,48 +1,65 @@
-.selected {
-  background-color: #CFD8DC !important;
-  color: white;
+ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+ul .list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width:60%;
+  box-shadow: 0.1em 0.2em 0.3em black;
+  background-color: blueviolet;
+  margin: 5em 0;
+}
+
+.list h3 {
+  font-size: 1.5em;
+  color: azure;
+  margin: 2em 0;
+}
+
 .recipes {
   margin: 2em auto;
   list-style-type: none;
   padding: 0;
   width: 340px;
 }
+
 .recipes li {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  background-color: #607D8B;
-  color: azure;
   margin: 0.5em;
-  padding: 0.3em 0.35em;
   height: 2em;
   border-radius: 4px;
   font-size: 1.25em;
-}
-
-.recipes li div {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-} 
-
-.recipes li button {
-  background: none;
-  outline: none;
   background-color: azure;
   border:none;
   color: #607D8B;
-  border-radius: 100%;
-  cursor: pointer;
-
 }
 
-a {
-  color: inherit;
-  
+.recipes li  .delete {
+  margin: 0 0 0 1em;
+  height: auto;
+  padding: 0.91em;
+  box-shadow: none;
+  border-radius: 0 4px 4px 0;
+} 
+
+.recipes form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 1em 0;
+}
+
+.recipes li a {
+ margin-left: 1em;
 }
 
 h4 {
@@ -50,4 +67,37 @@ h4 {
   text-align: center;
   margin: 4em 0;
   font-size: 2em;
+}
+
+button {
+  border:none;
+  background: none;
+  outline: none;
+  background-color: chartreuse;
+  padding:1.1em;
+  margin:1em;
+  color: azure;
+  border-radius: 5%;
+  box-shadow: 0.1em 0.2em 0.3em black;
+  cursor: pointer;
+}
+
+input {
+  border: 0.1em solid rgba(0,249,255,0.9);
+  width:20em;
+  height: 3em;
+  text-align: center;
+}
+
+select, option {
+  outline: none;
+  border: 0.1em solid rgba(0,249,255,0.9);
+  width: auto;
+  height: 3em;
+  text-align: center;
+}
+
+button:hover {
+  color: chartreuse;
+  background-color: azure;
 }

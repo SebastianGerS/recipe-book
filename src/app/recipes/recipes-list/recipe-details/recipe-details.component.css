@@ -13,7 +13,7 @@
   color: #607D8B;
   margin: 2em auto;
   font-size: 1.5em;
-  width: 50%;
+  width: 85%;
 }
 
 .recipe > * {
@@ -27,16 +27,27 @@
 }
 
 .recipe ul li {
-
+  display:flex;
+  flex-direction: row;
+  align-items: center;
   line-height: 1.2;
+}
+.recipe ul li p {
+  margin-right: 1em;
+}
+.recipe ul li form {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
 }
 .recipe button {
   border:none;
   background: none;
   outline: none;
   width:auto;
+  max-height: 1.5em;
   font-size: 1.25em;
-  padding:0.25em 0.5em;
+  padding:0.25em 0.4em;
   background-color: chartreuse;
   color: azure;
   box-shadow: 0.1em 0.2em 0.3em black;

@@ -25,17 +25,17 @@
     <ul *ngIf="recipe.ingredients.length">
       <h4>Ingredients:</h4>
       <li *ngFor="let ingredient of recipe.ingredients">
-        {{ingredient}}
+        <p>{{ingredient}}</p>
         <form #selectedIngredientsList="ngForm" (ngSubmit)="addIngredients(selectedIngredientsList, [ingredient])">
-          <select #list="ngModel" name="listId" ngModel >
+          <select #list="ngModel" name="listId" ngModel required>
             <option *ngFor="let list of ingredientLists" value="{{list.id}}">{{list.name}}</option>
           </select>
-          <button>add ingredient to list</button>
+          <button>add to list</button>
         </form>
       </li>
     </ul>
     <form #selectedIngredientsList="ngForm" (ngSubmit)="addIngredients(selectedIngredientsList, recipe.ingredients)">
-      <select #list="ngModel" name="listId" ngModel >
+      <select #list="ngModel" name="listId" ngModel required>
         <option *ngFor="let list of ingredientLists" value="{{list.id}}">{{list.name}}</option>
       </select>
       <button>add all ingredirents to list</button>

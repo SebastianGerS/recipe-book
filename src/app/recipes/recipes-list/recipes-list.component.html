@@ -1,6 +1,6 @@
 
 <ul *ngIf="lists">
-    <li *ngFor="let list of lists">
+    <li class="list" *ngFor="let list of lists">
         <h3>{{list.name}}</h3>
         <button class="delete" title="delete list" (click)="deleteList(list)">delete list</button>
         <ul class="recipes" *ngIf="list.recipes">
@@ -8,10 +8,8 @@
                 <a routerLink="/lists/{{list.id}}/recipe/{{recipe.id}}" >
                     {{recipe.name | slice:0:25}}
                 </a>
-              <div>
                 <button class="delete" title="delete recipe"
-                  (click)="deleteRecipeFromList(list.id, recipe)">x</button>
-              </div>
+                  (click)="deleteRecipeFromList(list.id, recipe)">x</button>           
             </li>
         </ul>
         <ul class="recipes" *ngIf="list.ingredients">

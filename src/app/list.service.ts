@@ -13,7 +13,7 @@ private url: string;
   constructor(
     private http: HttpClient,
     private messageService: MessageService) {
-      this.url = 'http://api.app.test/api/auth/lists';
+      this.url = 'http://lab4.sebastiangerstelsollerman.chas.academy/api/auth/lists';
       this.token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
     }
 
