@@ -24,6 +24,8 @@ export class RecipeSearchComponent implements OnInit {
   private cuisines = CUISINES;
   private totalTimes = TOTALTIMES;
   private filters = '';
+  private searchfilters = new Subject<string>();
+  private filtersHasChanged = false;
   public showCourses = false;
   public showAllergies = false;
   public showDiets = false;
@@ -36,11 +38,19 @@ export class RecipeSearchComponent implements OnInit {
   search(term: string): void {
     this.searchTerms.next(term);
   }
+  
   ngOnInit(): void {
     this.recipes$ = this.searchTerms.pipe(
       debounceTime(300),
-      distinctUntilChanged(),
+      distinctUntilChanged((x,y) => {
+        if (this.filtersHasChanged) {
+          return false;
+        } else {
+          return x === y;
+        }
+      }),
       switchMap((term: string) => {
+        this.filtersHasChanged = false;
         return this.recipeService.searchRecipes(term, this.filters);
       })
     );
@@ -60,7 +70,7 @@ export class RecipeSearchComponent implements OnInit {
     const param = this.escapeSpecialCharacters(`&${filter.parameter}`);
     const regExp = RegExp(`${param}*`);
     let newRegExp = RegExp(`${TIMEBASE}*`);
-
+    
     if (newRegExp.test(param)) {
       this.totalTimes.forEach(element => {
         const toBeChecked = this.escapeSpecialCharacters(`&${element.parameter}`);
@@ -76,6 +86,8 @@ export class RecipeSearchComponent implements OnInit {
     } else {
       this.filters += `&${filter.parameter}`;
     }
+    this.filtersHasChanged = true;
+    this.search(this.searchTerms.observers[0]['destination'].key);
   }
 
 }
