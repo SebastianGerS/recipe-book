@@ -105,10 +105,10 @@ export class RecipeService {
 
   addRecipe (recipe: Recipe): Observable<Recipe> {
     return this.http.get<Recipe>(`${this.recipesUrl}/${recipe.id}`).pipe(
-      tap((recipe: Recipe) => this.log(`The recipe you tried to add is already in you list`)),
+      tap((rec: Recipe) => this.log(`The recipe you tried to add is already in you list`)),
       catchError( res => {
         return this.http.post<Recipe>(this.recipesUrl, recipe, httpOptions).pipe(
-        tap((recipe: Recipe) => this.log(`The recipe was added to your list!`)),
+        tap((r: Recipe) => this.log(`The recipe was added to your list!`)),
         catchError(this.handleError<Recipe>('addRecipe'))
         );
       }
@@ -130,6 +130,7 @@ export class RecipeService {
       return of([]);
     }
     const url = `${this.yummlyUrl}${term}${filters}`;
+
     return this.http.get(url).pipe(
       map(res => {
         const recipes = [];
@@ -153,7 +154,7 @@ export class RecipeService {
             holiday = [];
           }
           if (match.smallImageUrls) {
-            imgUrl= match.smallImageUrls[0];
+            imgUrl = match.smallImageUrls[0];
           } else {
             imgUrl = '';
           }

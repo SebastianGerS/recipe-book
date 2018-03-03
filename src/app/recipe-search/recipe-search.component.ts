@@ -6,8 +6,8 @@ import { debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 import { Recipe } from '../recipes/recipes-list/recipe-item/recipe';
 import { RecipeService } from '../recipe.service';
 import { RecipeFilter } from './recipefilter';
-import { COURSES, ALLERGIES, DIETS, HOLIDAYS, CUISINES, TOTALTIMES,
-  COURSBASE, ALLERGIEBASE, DIETBASE, HOLIDAYBASE, CUISINEBASE, TIMEBASE } from './filtercolection';
+import { COURSBASE, ALLERGIEBASE, DIETBASE, HOLIDAYBASE, CUISINEBASE, TIMEBASE,
+   COURSES, ALLERGIES, DIETS, HOLIDAYS, CUISINES, TOTALTIMES } from './filtercolection';
 
 @Component({
   selector: 'app-recipe-search',
@@ -38,11 +38,11 @@ export class RecipeSearchComponent implements OnInit {
   search(term: string): void {
     this.searchTerms.next(term);
   }
-  
+
   ngOnInit(): void {
     this.recipes$ = this.searchTerms.pipe(
       debounceTime(300),
-      distinctUntilChanged((x,y) => {
+      distinctUntilChanged((x, y) => {
         if (this.filtersHasChanged) {
           return false;
         } else {
@@ -70,7 +70,7 @@ export class RecipeSearchComponent implements OnInit {
     const param = this.escapeSpecialCharacters(`&${filter.parameter}`);
     const regExp = RegExp(`${param}*`);
     let newRegExp = RegExp(`${TIMEBASE}*`);
-    
+
     if (newRegExp.test(param)) {
       this.totalTimes.forEach(element => {
         const toBeChecked = this.escapeSpecialCharacters(`&${element.parameter}`);
@@ -87,7 +87,9 @@ export class RecipeSearchComponent implements OnInit {
       this.filters += `&${filter.parameter}`;
     }
     this.filtersHasChanged = true;
-    this.search(this.searchTerms.observers[0]['destination'].key);
+    const term = this.searchTerms.observers[0]['destination'].key;
+    if (term) {
+      this.search(term);
+    }
   }
-
 }
