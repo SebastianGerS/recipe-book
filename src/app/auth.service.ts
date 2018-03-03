@@ -83,12 +83,12 @@ export class AuthService {
       const tokenExpDate = this.jwtHelper.getTokenExpirationDate(user.data['access_token']);
       const date = new Date();
       const offset = tokenExpDate.getTimezoneOffset() - date.getTimezoneOffset();
-
-      if ((tokenExpDate.getTime() - date.getTime()) <= (1000 * 60 * 10 + 1000 * 60 * offset) ) {
-        this.log('your session is about to expire, would you like to refresh? (else you will be logged out in 10 min)');
-      } else if ((tokenExpDate.getTime() - date.getTime()) <= (1000 * 60 * offset)) {
+      
+      if ((tokenExpDate.getTime() - date.getTime()) <= (1000 * 60 * offset)) {
         this.logout();
-      }
+      } else if ((tokenExpDate.getTime() - date.getTime()) <= (1000 * 60 * 10 + 1000 * 60 * offset) ) {
+        this.log('your session is about to expire, would you like to refresh? (else you will be logged out in 10 min)');
+      } 
     }
   }
 
