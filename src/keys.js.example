@@ -1,0 +1,4 @@
+export const YUMMLY = {
+    'app-id': 'YUMMLY-APP-ID',
+    'app-key': 'YUMMLY_APP_KEY' 
+}; //get your keys at: https://developer.yummly.com/
