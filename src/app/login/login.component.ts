@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loggedIn = this.authService.isLoggedIn();
     this.checkIfAboutToExipre();
+    setInterval(() => { this.loggedIn = this.authService.isLoggedIn(); }, 10);
   }
 
   attemptLogin(): void {
