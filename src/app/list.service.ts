@@ -5,6 +5,7 @@ import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { Recipe } from './recipes/recipes-list/recipe-item/recipe';
+import { API_URL } from '../config';
 
 @Injectable()
 export class ListService {
@@ -13,7 +14,7 @@ private url: string;
   constructor(
     private http: HttpClient,
     private messageService: MessageService) {
-      this.url = 'http://lab4.sebastiangerstelsollerman.chas.academy/api/auth/lists';
+      this.url = API_URL;
       this.token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
     }
 

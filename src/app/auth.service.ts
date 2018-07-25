@@ -5,6 +5,7 @@ import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { API_URL } from '../config';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,7 @@ export class AuthService {
     private jwtHelper: JwtHelperService,
     private messageService: MessageService
   ) {
-      this.url = 'http://lab4.sebastiangerstelsollerman.chas.academy/api/auth';
+      this.url = API_URL;
     }
 
   login(email: string, password: string): Observable<any> {
@@ -31,10 +32,12 @@ export class AuthService {
   }
 
   register( name: string, email: string, password: string): Observable<any> {
-
+    
     return this.http.post<any>(`${this.url}/register`, {name: name, email: email, password: password})
     .pipe(
-      tap(_ => this.login(email, password)),
+      tap(_ => {
+        console.log(email);
+        return this.login(email, password).subscribe()}),
       catchError(this.handleError<any>('register'))
     );
   }

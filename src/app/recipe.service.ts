@@ -5,7 +5,7 @@ import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import {Recipe} from './recipes/recipes-list/recipe-item/recipe';
-import { YUMMLY } from '../keys';
+import { YUMMLY } from '../config';
 import { forEach } from '@angular/router/src/utils/collection';
 
 const httpOptions = {

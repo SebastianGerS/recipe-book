@@ -19,6 +19,7 @@ import { AuthService } from './auth.service';
 import { RegisterComponent } from './register/register.component';
 import { RestangularModule, Restangular } from 'ngx-restangular';
 import { ListService } from './list.service';
+import { API_URL } from '../config';
 
 export function jwtOptionsFactory() {
   return {
@@ -29,7 +30,7 @@ export function jwtOptionsFactory() {
         }
         return null;
       },
-      whitelistedDomains: ['http://lab4.sebastiangerstelsollerman.chas.academy'],
+      whitelistedDomains: [API_URL],
       skipWhenExpired: true
     };
 }
