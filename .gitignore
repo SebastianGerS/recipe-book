@@ -44,4 +44,4 @@ Thumbs.db
 
 #api keys
 
-/src/keys.ts
+/src/config.ts
