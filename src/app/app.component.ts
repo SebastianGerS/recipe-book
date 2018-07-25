@@ -1,5 +1,5 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { LoginComponent } from './login/login.component';
+import { Component, AfterViewInit } from '@angular/core';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +9,14 @@ import { LoginComponent } from './login/login.component';
 export class AppComponent implements AfterViewInit {
   title = 'the Recipe Book';
 
-  @ViewChild(LoginComponent)
-  private loginComponent: LoginComponent;
+  constructor(
+    private authService: AuthService,
+  ) { }
 
   public loggedIn = false;
 
   ngAfterViewInit() {
-    setTimeout(() => this.loggedIn = this.loginComponent.loggedIn, 1);
-    setInterval(() => this.loggedIn = this.loginComponent.loggedIn, 10);
+    setTimeout(() => this.loggedIn = this.authService.isLoggedIn(), 1);
+    setInterval(() => this.loggedIn = this.authService.isLoggedIn(), 10);
   }
 }
