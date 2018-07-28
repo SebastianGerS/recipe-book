@@ -64,13 +64,11 @@ export class AuthService {
   isLoggedIn() {
 
     const user = JSON.parse(localStorage.getItem('currentUser'));
-
+    
     if (user) {
 
       const token = user.data['access_token'];
-
-      if (token && !this.jwtHelper.isTokenExpired(token)) {
-
+      if (token && this.jwtHelper.isTokenExpired(token)) {
         return true;
       }
     }
