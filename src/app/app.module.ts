@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule, InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -17,7 +16,6 @@ import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './auth.service';
 import { RegisterComponent } from './register/register.component';
-import { RestangularModule, Restangular } from 'ngx-restangular';
 import { ListService } from './list.service';
 import { API_URL } from '../config';
 
