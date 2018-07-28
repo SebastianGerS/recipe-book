@@ -14,7 +14,7 @@ private url: string;
   constructor(
     private http: HttpClient,
     private messageService: MessageService) {
-      this.url = API_URL;
+      this.url = `${API_URL}/lists`;
       this.token = `?token=${JSON.parse(localStorage.getItem('currentUser')).data['access_token']}`;
     }
 
@@ -83,7 +83,7 @@ private url: string;
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      this.log(`${operation} failed: ${error.message}`);
+      this.log(`${operation} failed: ${error.status}`);
       return of(result as T);
     };
   }
