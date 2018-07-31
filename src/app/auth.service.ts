@@ -36,7 +36,6 @@ export class AuthService {
     return this.http.post<any>(`${this.url}/register`, {name: name, email: email, password: password})
     .pipe(
       tap(_ => {
-        console.log(email);
         return this.login(email, password).subscribe()}),
       catchError(this.handleError<any>('register'))
     );
