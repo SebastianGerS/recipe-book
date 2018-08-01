@@ -67,7 +67,7 @@ export class AuthService {
     if (user) {
 
       const token = user.data['access_token'];
-      if (token && this.jwtHelper.isTokenExpired(token)) {
+      if (token) {
         return true;
       }
     }
