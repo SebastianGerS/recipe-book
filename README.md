@@ -2,7 +2,9 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.7.
 
-Project can be found at: http://lab3.sebastiangerstelsollerman.chas.academy
+Project deployed at: http://recipe-book.sebstiangerstelsollerman.me
+
+note that for this project to run properly you have to create a config.ts file (view the example in config.ts.example) and register at https://developer.yummly.com/ to get your own keys for the yummly api
 
 ## Development server
 
